@@ -1,0 +1,165 @@
+{
+  "root": true,
+
+  "plugins": [
+    "react",
+    "react-hooks",
+    "babel"
+  ],
+
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:react/recommended"
+  ],
+
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jasmine": true,
+    "commonjs": true,
+    "node": true,
+    "jest": true,
+    "mocha": true
+  },
+
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+
+  "rules": {
+    // Disabled, May conflict with Prettier
+    // Caught using `npm run lint-eslint-config-prettier`
+    "max-len": [0, { "code": 100, "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true, "ignoreComments": true }],
+    "quotes": [0, "single", { "allowTemplateLiterals": true }],
+    "array-bracket-spacing": [0, "never"],
+    "arrow-parens": [0, "always"],
+    "arrow-spacing": 0,
+    "brace-style": [0, "stroustrup", { "allowSingleLine": false }],
+    "computed-property-spacing": [0, "never"],
+    "eol-last": 0,
+    "indent": [0, 2, { "SwitchCase": 0 }],
+    "key-spacing": [0, { "mode": "strict" }],
+    "keyword-spacing": 0,
+    "linebreak-style": [0, "unix"],
+    "no-mixed-spaces-and-tabs": 0,
+    "no-multi-spaces": [0, {
+      "exceptions": {
+        "VariableDeclarator": true,
+        "ImportDeclaration": true,
+        "ImportSpecifier": true,
+        "AssignmentExpression": true,
+        "ClassProperty": true
+      }
+    }],
+    "no-multiple-empty-lines": [0, { "max": 1 }],
+    "no-trailing-spaces": 0,
+    "object-curly-spacing": [0, "always"],
+    "operator-linebreak": [0, "after", { "overrides": { "?": "before", ":": "before" } }],
+    "semi": [0, "always"],
+    "space-before-blocks": [0, "always"],
+
+    "react/jsx-closing-bracket-location": [0, "line-aligned"],
+    "react/jsx-curly-spacing": [0, "always", { "allowMultiline": true }],
+    "react/jsx-equals-spacing": [0, "never"],
+    "react/jsx-indent-props": [0, 2],
+    "react/jsx-tag-spacing": [0, {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "never"
+    }],
+    "react/jsx-wrap-multilines": [0, {
+      "declaration": false,
+      "assignment": false,
+      "return": true
+    }],
+
+    // Disabled
+    // `no-console` is enforced via `lintjs` npm script
+    "no-console": 0,
+
+    // Warning
+
+    "no-debugger": 1,
+    "no-unreachable": 1,
+    "no-unused-vars": [1, { "vars": "all", "args": "after-used" }],
+    "newline-after-var": [1, "always"],
+//    "newline-before-return": 1,
+    // eslint-config-prettier-check may warn about this rule, but it's ok in our case, see:
+    // https://github.com/prettier/eslint-config-prettier#arrow-body-style-and-prefer-arrow-callback
+    "prefer-arrow-callback": 1,
+    "prefer-const": 1,
+    "no-warning-comments": [1, { "terms": ["fixme", "todo", "hack", "review", "xxx"] }],
+    "no-useless-constructor": 1,
+    "strict": [1, "never"],
+    "no-else-return": 1,
+    "curly": [1, "all"],
+    "no-inline-comments": 1,
+    "spaced-comment": [1, "always", { "exceptions": ["-"] }],
+    "no-unneeded-ternary": [1, { "defaultAssignment": false }],
+    "no-var": 1,
+    "eqeqeq": [1, "always"],
+    "no-return-assign": 1,
+    "no-multi-str": 1,
+
+    // React
+
+    // Disabled
+    "react/no-deprecated": 0,
+    "react/forbid-elements": 0,
+    "react/forbid-prop-types": [0, { "forbid": ["any", "array", "object"] }],
+    "react/no-array-index-key": 0,
+    "react/no-danger": 0,
+    "react/no-set-state": 0,
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "react/sort-prop-types": 0,
+    "react/require-optimization": 0,
+    "react/style-prop-object": 0,
+
+    "react/jsx-first-prop-new-line": 0,
+    "react/jsx-handler-names": 0,
+    "react/jsx-key": 0,
+    "react/jsx-max-props-per-line": 0,
+    "react/jsx-no-comment-textnodes": 0,
+    "react/jsx-no-literals": 0,
+    "react/jsx-sort-props": 0,
+    "react/forbid-component-props": 0,
+    "react/jsx-indent": 0,
+
+    // Warning
+    "react/forbid-foreign-prop-types": 1,
+    "react/no-children-prop": 1,
+    "react/no-danger-with-children": 1,
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-multi-comp": [1, { "ignoreStateless": true }],
+    "react/no-string-refs": 1,
+    "react/no-unescaped-entities": 1,
+    "react/no-unused-prop-types": 1,
+    "react/prefer-es6-class": [1, "always"],
+    "react/prefer-stateless-function": [1, { "ignorePureComponents": true }],
+    "react/react-in-jsx-scope": 1,
+    "react/self-closing-comp": 1,
+    "react/sort-comp": 1,
+    "react/void-dom-elements-no-children": 1,
+
+    "react/jsx-boolean-value": [1, "never"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-bind": [1, {
+      "ignoreRefs": true,
+      "allowArrowFunctions": true
+    }],
+    "react/jsx-no-target-blank": 1,
+    "react/jsx-pascal-case": 1,
+
+    // hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
