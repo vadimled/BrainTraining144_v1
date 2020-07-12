@@ -2,7 +2,8 @@ import types from '../types'
 import createReducer from '../reducers/createReducer'
 
 const initialState = {
-
+  loading: false,
+  currShapesId: []
 };
 
 const gameReducer = createReducer(initialState, {

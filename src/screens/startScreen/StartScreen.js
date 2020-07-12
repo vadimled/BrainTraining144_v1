@@ -10,16 +10,18 @@ import ProgressBar from 'react-native-progress/Bar';
 import * as actions from '../../store/actions/userActions';
 import {useDispatch} from 'react-redux';
 import {COLORS} from '../../utils/constants';
+import {getListOf144Shapes} from "../../utils/helper"
 
 const StartScreen = ({navigation}) => {
   const [progress, setProgress] = useState(0);
+  let shapeList  = useRef(getListOf144Shapes());
   
   const interval = useRef(0);
   const dispatch = useDispatch();
   
-  useEffect(() => {
-    dispatch(actions.fetchUser())
-  },[dispatch]);
+    useEffect(() => {
+    
+  },[]);
   
   useEffect(() => {
     if (progress <= 1) {
@@ -28,12 +30,12 @@ const StartScreen = ({navigation}) => {
       }, 500);
     }
     else {
-      navigation.navigate('Login')
+      navigation.navigate('Game')
       clearInterval(interval.current);
     }
     return () => clearInterval(interval.current);
   }, [progress, navigation])
-  
+
   return (
     <StartScreenContainer source={require('../../../assets/background.png')}>
       <StartScreenProgress>

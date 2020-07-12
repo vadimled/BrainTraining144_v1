@@ -1,8 +1,8 @@
-import {Entypo, FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons"
-import {COLORS, NUMBERS} from "./constants"
-import React from "react"
+import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { basicColors, basicShapes, COLORS, NUMBERS } from './constants';
+import React from 'react';
 
-export   const getIconByName = (name) => {
+export const getIconByName = (name) => {
   switch (name) {
     case 'human-male-female':
       return (
@@ -43,4 +43,23 @@ export   const getIconByName = (name) => {
     case 'user':
       return <Entypo name="user" size={NUMBERS.prefixIconSize} color={COLORS.tableFont100} />;
   }
+};
+
+export const getListOf144Shapes = () => {
+  let res = [];
+  for (let shapeBig in basicShapes) {
+    for (let colorBig in basicColors) {
+      for (let shapeSmall in basicShapes) {
+        for (let colorSmall in basicColors) {
+          res.push({
+            shapeBig: basicShapes[shapeBig],
+            colorBig: basicColors[colorBig],
+            shapeSmall: basicShapes[shapeSmall],
+            colorSmall: basicColors[colorSmall]
+          });
+        }
+      }
+    }
+  }
+  return res;
 };

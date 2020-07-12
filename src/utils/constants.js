@@ -22,20 +22,26 @@ export const COLORS = {
   green100: '#0FD1BE',
   white: '#fff',
   black: '#000',
-  tbodyShadow: '5px 6px 7px -3px rgba(0, 0, 0, 0.13)'
+  shape1: '#ff9C00',
+  shape2: '#474bf5',
+  shape3: '#ad1905',
+  shape4: '#007813'
 };
 export const NUMBERS = {
   prefixIconSize: 24
 };
 
-export const TOOL_TIP ={
-  layout:{
-    br: "bottomRight",
-    bl: "bottomLeft",
-    tr: "topRight",
-    tl: "topLeft",
+export const TOOL_TIP = {
+  layout: {
+    br: 'bottomRight',
+    bl: 'bottomLeft',
+    tr: 'topRight',
+    tl: 'topLeft'
   },
   width: 250,
   iconBtnWidth: 40,
   iconBtnHeight: 20
-}
+};
+
+export const basicShapes = ['circle', 'triangle', 'square'];
+export const basicColors = [COLORS.shape1, COLORS.shape2, COLORS.shape3, COLORS.shape4];
