@@ -20,13 +20,13 @@ const StartScreen = ({ navigation }) => {
   }, []);
 
   const goToEasy = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game',{type: "easy"});
   };
   const goToMedium = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game',{type: "medium"});
   };
   const goToHard = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game',{type: "hard"});
   };
 
   return (
