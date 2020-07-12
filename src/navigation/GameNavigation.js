@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import StartScreen from '../screens/startScreen';
 import GameScreen from "../screens/gameScreen"
+import {COLORS} from "../utils/constants"
 
 const Stack = createStackNavigator();
 
@@ -21,21 +22,18 @@ const GameNavigator = () => {
           name="Game"
           component={GameScreen}
           options={{
-            headerShown: false
+            headerStyle: {
+              backgroundColor: COLORS.headerBackground,
+            },
+            headerTintColor: COLORS.tableFont100,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
           }}
         />
         {/*<Stack.Screen*/}
         {/*  name="SignUp"*/}
         {/*  component={SignUpScreen}*/}
-        {/*  options={{*/}
-        {/*    headerStyle: {*/}
-        {/*      backgroundColor: COLORS.headerBackground,*/}
-        {/*    },*/}
-        {/*    headerTintColor: COLORS.tableFont100,*/}
-        {/*    headerTitleStyle: {*/}
-        {/*      fontWeight: 'bold',*/}
-        {/*    }*/}
-        {/*  }}*/}
         {/*/>*/}
        
       </Stack.Navigator>

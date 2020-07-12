@@ -3,14 +3,15 @@ import createReducer from '../reducers/createReducer'
 
 const initialState = {
   loading: false,
+  full144List: null,
   currShapesId: []
 };
 
 const gameReducer = createReducer(initialState, {
-  [types.SET_LOADING]: (state, {payload}) => {
+  [types.SET_144_LIST ]: (state, {payload}) => {
     return {
       ...state,
-      loading: payload
+      full144List: payload
     }
   }
   

@@ -1,9 +1,9 @@
 import types from '../../store/types'
 
-export function setLoading(status) {
+export function set144List(data) {
   return {
-    type: types.SET_LOADING,
-    payload: status
+    type: types.SET_144_LIST,
+    payload: data
   }
 }
 

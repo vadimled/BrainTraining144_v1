@@ -4,50 +4,45 @@
  * created on 19/06/2020
  */
 
-import React, {useEffect, useRef, useState} from 'react';
-import {StartScreenContainer, StartScreenProgress} from './StartScreen.styled';
-import ProgressBar from 'react-native-progress/Bar';
-import * as actions from '../../store/actions/userActions';
-import {useDispatch} from 'react-redux';
-import {COLORS} from '../../utils/constants';
-import {getListOf144Shapes} from "../../utils/helper"
+import React, { useEffect, useRef } from 'react';
+import {BtnBackground, BtnTitle, ButtonsGroup, StartScreenContainer, StartTitle} from './StartScreen.styled';
+import { useDispatch } from 'react-redux';
+import { getListOf144Shapes } from '../../utils/helper';
+import { set144List } from '../../store/actions/gameActions';
 
-const StartScreen = ({navigation}) => {
-  const [progress, setProgress] = useState(0);
-  let shapeList  = useRef(getListOf144Shapes());
-  
-  const interval = useRef(0);
+const StartScreen = ({ navigation }) => {
+  let shapeList = useRef(getListOf144Shapes());
+
   const dispatch = useDispatch();
-  
-    useEffect(() => {
-    
-  },[]);
-  
+
   useEffect(() => {
-    if (progress <= 1) {
-      interval.current = setInterval(() => {
-        setProgress(progress => progress + 0.1);
-      }, 500);
-    }
-    else {
-      navigation.navigate('Game')
-      clearInterval(interval.current);
-    }
-    return () => clearInterval(interval.current);
-  }, [progress, navigation])
+    dispatch(set144List(shapeList));
+  }, []);
+
+  const goToEasy = () => {
+    navigation.navigate('Game');
+  };
+  const goToMedium = () => {
+    navigation.navigate('Game');
+  };
+  const goToHard = () => {
+    navigation.navigate('Game');
+  };
 
   return (
     <StartScreenContainer source={require('../../../assets/background.png')}>
-      <StartScreenProgress>
-        <ProgressBar
-          progress={progress}
-          width={350}
-          height={2}
-          color={COLORS.green100}
-          unfilledColor={COLORS.green700}
-          style={{borderWidth: 0}}
-        />
-      </StartScreenProgress>
+      <StartTitle>Training Settings</StartTitle>
+      <ButtonsGroup>
+        <BtnBackground onPress={goToEasy} activeOpacity={0.5}>
+          <BtnTitle>Easy</BtnTitle>
+        </BtnBackground>
+        <BtnBackground onPress={goToMedium} activeOpacity={0.5}>
+          <BtnTitle>Medium</BtnTitle>
+        </BtnBackground>
+        <BtnBackground onPress={goToHard} activeOpacity={0.5}>
+          <BtnTitle>Hard</BtnTitle>
+        </BtnBackground>
+      </ButtonsGroup>
     </StartScreenContainer>
   );
 };
