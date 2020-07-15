@@ -12,7 +12,7 @@ const GameScreen = ({route}) => {
   const type = useRef(route.params.type);
   console.log(type.current)
   return (
-    <GameScreenContainer>
+    <GameScreenContainer source={require('../../../assets/background.png')}>
       <Text>
         STAM
       </Text>

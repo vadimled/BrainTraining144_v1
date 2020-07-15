@@ -31,16 +31,21 @@ export const NUMBERS = {
   prefixIconSize: 24
 };
 
-export const TOOL_TIP = {
-  layout: {
-    br: 'bottomRight',
-    bl: 'bottomLeft',
-    tr: 'topRight',
-    tl: 'topLeft'
-  },
-  width: 250,
-  iconBtnWidth: 40,
-  iconBtnHeight: 20
+export const config = {
+  type: {
+    easy: {
+      gameField: 42,
+      guessField: 4,
+    },
+    medium: {
+      gameField: 70,
+      guessField: 8
+    },
+    hard: {
+      gameField: 144,
+      guessField: 12
+    }
+  }
 };
 
 export const basicShapes = ['circle', 'triangle', 'square'];
