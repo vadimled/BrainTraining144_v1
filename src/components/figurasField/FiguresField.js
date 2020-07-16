@@ -7,13 +7,27 @@
 import React from 'react';
 import {FiguresFieldContainer} from './FiguresField.styled';
 import {Text} from 'react-native';
+import Figure from "../figure"
 
 const FiguresField = () => {
   return (
     <FiguresFieldContainer>
-      <Text>
-        FiguresField
-      </Text>
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
+      <Figure />
     </FiguresFieldContainer>
   );
 };

@@ -14,9 +14,7 @@ const GameScreen = ({route}) => {
   return (
     <GameScreenContainer source={require('../../../assets/background.png')}>
         <GuessContainer></GuessContainer>
-        <FieldContainer>
           <FiguresField />
-        </FieldContainer>
     </GameScreenContainer>
   );
 };

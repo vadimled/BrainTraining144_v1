@@ -16,5 +16,4 @@ export const GuessContainer = styled.View`
 export const FieldContainer = styled.View`
     width: 100%;
     height: 65%;
-    border: red 1px solid;
 `;
