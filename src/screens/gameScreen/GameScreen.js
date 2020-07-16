@@ -5,17 +5,18 @@
  */
 
 import React, {useRef} from 'react';
-import {GameScreenContainer} from './GameScreen.styled';
-import {Text} from 'react-native';
+import {FieldContainer, GameScreenContainer, GuessContainer, SafeAreaContainer} from './GameScreen.styled';
+import FiguresField from "../../components/figurasField"
 
 const GameScreen = ({route}) => {
   const type = useRef(route.params.type);
   console.log(type.current)
   return (
     <GameScreenContainer source={require('../../../assets/background.png')}>
-      <Text>
-        STAM
-      </Text>
+        <GuessContainer></GuessContainer>
+        <FieldContainer>
+          <FiguresField />
+        </FieldContainer>
     </GameScreenContainer>
   );
 };
