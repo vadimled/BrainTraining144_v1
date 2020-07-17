@@ -50,3 +50,7 @@ export const config = {
 
 export const basicShapes = ['circle', 'triangle', 'square'];
 export const basicColors = [COLORS.shape1, COLORS.shape2, COLORS.shape3, COLORS.shape4];
+export const size = {
+  big: { width: 40, height: 40 },
+  small: { width: 22, height: 22 }
+}

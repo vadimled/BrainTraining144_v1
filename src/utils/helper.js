@@ -46,12 +46,13 @@ export const getIconByName = (name) => {
 };
 
 export const getListOf144Shapes = () => {
-  let res = [];
+  let res = [], id = 1;
   for (let shapeBig in basicShapes) {
     for (let colorBig in basicColors) {
       for (let shapeSmall in basicShapes) {
         for (let colorSmall in basicColors) {
           res.push({
+            id: id++,
             shapeBig: basicShapes[shapeBig],
             colorBig: basicColors[colorBig],
             shapeSmall: basicShapes[shapeSmall],

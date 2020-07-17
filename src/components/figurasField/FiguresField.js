@@ -6,28 +6,18 @@
 
 import React from 'react';
 import {FiguresFieldContainer} from './FiguresField.styled';
-import {Text} from 'react-native';
 import Figure from "../figure"
 
 const FiguresField = () => {
   return (
     <FiguresFieldContainer>
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
-      <Figure />
+      <Figure config={{
+          id        : 1,
+          shapeBig  : 'triangle',
+          colorBig  : "#474bf5",
+          shapeSmall: "square",
+          colorSmall: "#ff9C00"
+      }}/>
     </FiguresFieldContainer>
   );
 };

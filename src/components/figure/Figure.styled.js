@@ -1,10 +1,31 @@
 import styled from 'styled-components/native';
 import { COLORS } from '../../utils/constants';
 
+export const FigureTouchableContainer = styled.TouchableOpacity`
+  flex: 1;
+  width: 65px;
+  height: 72px;
+  margin: 3px;
+`;
+export const FigureContainerBgn = styled.ImageBackground`
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+`;
 export const FigureContainer = styled.View`
-    flex: 1;
-    width: 60px;
-    height: 80px;
-    background-color: red;
-    margin: 10px;
+  margin-top: 7px;
+  margin-left: 7px;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: transparent;
+`;
+export const SecondShape = styled.View`
+  position: absolute;
+  top: 21px;
+  left: 5px;
 `;
