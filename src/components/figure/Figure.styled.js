@@ -1,16 +1,13 @@
 import styled from 'styled-components/native';
-import { COLORS } from '../../utils/constants';
 
 export const FigureTouchableContainer = styled.TouchableOpacity`
-  flex: 1;
-  width: 65px;
-  height: 72px;
-  margin: 3px;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
 `;
 export const FigureContainerBgn = styled.ImageBackground`
-  flex: 1;
-  width: 65px;
-  height: 72px;
+  width: 60px;
+  height: 67px;
   position: relative;
   background-color: transparent;
 `;

@@ -5,14 +5,15 @@
  */
 
 import React from 'react';
-import {FiguresFieldContainer} from './FiguresField.styled';
-import Figure from "../figure"
+import { FiguresFieldContainer } from './FiguresField.styled';
+import Figure from '../figure';
 
-const FiguresField = ({config}) => {
-  console.log({config})
+const FiguresField = ({ list }) => {
   return (
     <FiguresFieldContainer>
-      <Figure config={config}/>
+      {list.map((item, index) => {
+        return <Figure key={index} config={item} />;
+      })}
     </FiguresFieldContainer>
   );
 };
