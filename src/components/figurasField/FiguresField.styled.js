@@ -1,14 +1,9 @@
 import styled from 'styled-components/native';
 
-export const FiguresFieldContainer = styled.ScrollView.attrs(() => ({
-  contentContainerStyle: {
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start'
-  },
-}))
+export const FiguresFieldContainer = styled.ScrollView
   `
     flex: 1;
     width: 100%;
-    height: 100%;
+    height: auto;
 
 `;

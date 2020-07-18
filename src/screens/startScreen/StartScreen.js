@@ -8,7 +8,7 @@ import React, { useEffect, useRef } from 'react';
 import {BtnBackground, BtnTitle, ButtonsGroup, StartScreenContainer, StartTitle} from './StartScreen.styled';
 import { useDispatch } from 'react-redux';
 import { getListOf144Shapes } from '../../utils/helper';
-import { set144List } from '../../store/actions/gameActions';
+import {set144List, setCurrentGameType} from '../../store/actions/gameActions';
 
 const StartScreen = ({ navigation }) => {
   let shapeList = useRef(getListOf144Shapes());
@@ -16,16 +16,19 @@ const StartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(set144List(shapeList));
+    dispatch(set144List(shapeList.current));
   }, []);
 
   const goToEasy = () => {
+    dispatch(setCurrentGameType("easy"));
     navigation.navigate('Game',{type: "easy"});
   };
   const goToMedium = () => {
+    dispatch(setCurrentGameType("medium"));
     navigation.navigate('Game',{type: "medium"});
   };
   const goToHard = () => {
+    dispatch(setCurrentGameType("hard"));
     navigation.navigate('Game',{type: "hard"});
   };
 

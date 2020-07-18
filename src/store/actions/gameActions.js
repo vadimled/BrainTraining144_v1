@@ -7,3 +7,10 @@ export function set144List(data) {
   }
 }
 
+export function setCurrentGameType(type) {
+  return {
+    type: types.SET_CURRENT_GAME_TYPE,
+    payload: type
+  }
+}
+

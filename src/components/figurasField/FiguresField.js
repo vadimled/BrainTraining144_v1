@@ -8,16 +8,11 @@ import React from 'react';
 import {FiguresFieldContainer} from './FiguresField.styled';
 import Figure from "../figure"
 
-const FiguresField = () => {
+const FiguresField = ({config}) => {
+  console.log({config})
   return (
     <FiguresFieldContainer>
-      <Figure config={{
-          id        : 1,
-          shapeBig  : 'triangle',
-          colorBig  : "#474bf5",
-          shapeSmall: "square",
-          colorSmall: "#ff9C00"
-      }}/>
+      <Figure config={config}/>
     </FiguresFieldContainer>
   );
 };
