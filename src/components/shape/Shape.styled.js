@@ -8,8 +8,8 @@ export const ShapeContainer = styled.View`
 `;
 export const SquareShape = styled.View`
   background-color: ${(props) => props.color};
-  width: ${(props) => `${props.width}px`};
-  height: ${(props) => `${props.height}px`};
+  width: ${(props) => `${props.width-2}px`};
+  height: ${(props) => `${props.height-2}px`};
   border: white 1px solid;
 `;
 export const TriangleShape = styled.View`

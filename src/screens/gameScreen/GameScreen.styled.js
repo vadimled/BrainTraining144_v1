@@ -10,7 +10,7 @@ export const GameScreenContainer = styled.ImageBackground`
 export const GuessContainer = styled.View`
     width: 100%;
     height: 35%;
-    background-color: aqua;
+    border: 1px solid #ff0019;
 `;
 
 export const FieldContainer = styled.View`

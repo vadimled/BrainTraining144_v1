@@ -1,18 +1,16 @@
 import styled from 'styled-components/native';
 
 export const FigureTouchableContainer = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
   margin: 4px;
 `;
 export const FigureContainerBgn = styled.ImageBackground`
-  width: 60px;
-  height: 67px;
+  width: ${props => `${props.width}px`};
+  height: ${props => `${props.height}px`};;
   position: relative;
   background-color: transparent;
 `;
 export const FigureContainer = styled.View`
-  margin-top: 7px;
+  margin-top: 4px;
   margin-left: 7px;
   width: 100%;
   height: 100%;
@@ -23,6 +21,6 @@ export const FigureContainer = styled.View`
 `;
 export const SecondShape = styled.View`
   position: absolute;
-  top: 21px;
+  top: 18px;
   left: 5px;
 `;
