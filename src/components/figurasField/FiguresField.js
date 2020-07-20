@@ -4,15 +4,22 @@
  * created on 16/07/2020
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { FiguresFieldContainer } from './FiguresField.styled';
 import Figure from '../figure';
 
 const FiguresField = ({ list }) => {
+  const [isDragging, setDragging] = useState(false);
+  const setDraggingHandle = val => {
+    console.log("--------> ", val)
+    setDragging(val)
+  }
   return (
-    <FiguresFieldContainer>
+    <FiguresFieldContainer scrollEbabled={isDragging}>
       {list.map((item, index) => {
-        return <Figure key={index} config={item} />;
+        return (
+          <Figure key={index} config={item} setDragging={setDraggingHandle} />
+        );
       })}
     </FiguresFieldContainer>
   );
