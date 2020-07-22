@@ -8,6 +8,7 @@ export const FigureContainerBgn = styled.ImageBackground`
   height: ${props => `${props.height}px`};;
   position: relative;
   background-color: transparent;
+  z-index: 10000;
 `;
 export const FigureContainer = styled.View`
   margin-top: 4px;

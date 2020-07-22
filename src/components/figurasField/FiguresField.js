@@ -5,24 +5,42 @@
  */
 
 import React, { useState } from 'react';
-import { FiguresFieldContainer } from './FiguresField.styled';
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import Figure from '../figure';
+import {GuessContainer} from "../../screens/gameScreen/GameScreen.styled"
 
 const FiguresField = ({ list }) => {
   const [isDragging, setDragging] = useState(false);
-  const setDraggingHandle = val => {
-    console.log("--------> ", val)
-    setDragging(val)
-  }
+  const setDraggingHandle = (val) => {
+    console.log('--------> ', val);
+    setDragging(val);
+  };
   return (
-    <FiguresFieldContainer scrollEbabled={isDragging}>
-      {list.map((item, index) => {
-        return (
-          <Figure key={index} config={item} setDragging={setDraggingHandle} />
-        );
-      })}
-    </FiguresFieldContainer>
+    <SafeAreaView style={styles.container}>
+      <GuessContainer />
+      <ScrollView
+        contentContainerStyle={styles.contentContainer}
+        scrollEnabled={isDragging}
+      >
+        {list.map((item, index) => {
+          return <Figure key={index} config={item} setDragging={setDraggingHandle} />;
+        })}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    zIndex: 100
+  },
+  contentContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    zIndex: 100
+  }
+});
 export default FiguresField;
