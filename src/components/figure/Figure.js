@@ -14,26 +14,48 @@ import {
 import { Animated, Dimensions, PanResponder } from 'react-native';
 import Shape from '../shape';
 import { size } from '../../utils/constants';
+import {State} from "react-native-gesture-handler"
 
 const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, colorSmall } }) => {
+  const [action, setAction] = useState(false);
   const pan = useRef(new Animated.ValueXY()).current;
+  const scale = useRef(new Animated.Value(1)).current;
 
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderTerminate: () => false,
       onPanResponderGrant: () => {
-        setDragging(false);
-        pan.setOffset({
-          x: pan.x._value,
-          y: pan.y._value
+        Animated.timing(scale, {
+          duration: 1000,
+          toValue: 1.1
+        }).start(() => {
+          setAction(true);
+          // setDragging(false);
+          console.log('----2 action:', action);
         });
+    
+     
+  
+        setDragging(false);
+        // pan.setOffset({
+        //   x: pan.x._value,
+        //   y: pan.y._value
+        // });
       },
-      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {useNativeDriver: true}
-      ),
+      onPanResponderMove: Animated.event([{ nativeEvent: { scale } }]),
       onPanResponderRelease: () => {
         setDragging(true);
-        pan.flattenOffset();
+        // pan.flattenOffset();
+        if (!action) {
+          console.log('----3(START ACTION) action=', action)
+          setAction(false);
+          setDragging(true);
+          Animated.spring(scale, {
+            toValue: 1
+          }).start(() => console.log('----4(END ACTION) action=', action) || setDragging(true));
+        }
+  
       }
     })
   ).current;
@@ -48,7 +70,7 @@ const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, col
   return (
     <Animated.View
       style={{
-        transform: [{ translateX: pan.x }, { translateY: pan.y }],
+        transform: [{ scale }],
         zIndex:2
       }}
       {...panResponder.panHandlers}
