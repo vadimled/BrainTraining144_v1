@@ -61,30 +61,36 @@ const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, col
   const touchFigureHandle = () => {
     console.log("-----touchFigureHandle  id=",{ id });
   };
-
+ let counter = 0
   const onZoomEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   const onZoomStateChange = (event) => {
-    console.log({action,state: event.nativeEvent.state});
+    
+    console.log("------> onZoomStateChange(): ",{counter,action,eState: event.nativeEvent.state});
 
-    if (event.nativeEvent.state !== State.ACTIVE) {
+    if (event.nativeEvent.state === State.BEGAN) {
       console.log('----1 action:', action);
       Animated.timing(scale, {
-        duration: 900,
+        duration: 1000,
         toValue: 1.1,
         useNativeDriver: true
       }).start(() => {
          setAction(true);
-        setDragging(false);
+        // setDragging(false);
         console.log('----2 action:', action);
       });
-    } else if(!action){
-      setAction(false);
-      setDragging(true);
-      Animated.spring(scale, {
-        toValue: 1,
-        useNativeDriver: true
-      }).start(() => console.log('----3 oldState action:', action));
     }
+    else if (event.nativeEvent.state === State.END && !action) {
+      console.log('----3(START ACTION) action=', action)
+      setAction(false);
+        setDragging(true);
+        Animated.spring(scale, {
+          toValue: 1,
+          useNativeDriver: true
+        }).start(() => console.log('----4(END ACTION) action=', action) || setDragging(true));
+    }
+    // if(event.nativeEvent.state !== State.ACTIVE){
+     // }
+    counter++;
   };
   return (
     <TapGestureHandler onGestureEvent={onZoomEvent} onHandlerStateChange={onZoomStateChange}>
