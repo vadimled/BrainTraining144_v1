@@ -23,7 +23,7 @@ const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, col
     setDragging(true);
   }, []);
 
-  const scale = useRef(new Animated.Value(1)).current;
+  // const scale = useRef(new Animated.Value(1)).current;
   const pan = useRef(new Animated.ValueXY()).current;
   // const panResponder = useRef(
   //   PanResponder.create({
@@ -62,7 +62,7 @@ const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, col
     console.log('-----touchFigureHandle  id=', { id });
   };
   let counter = 0;
-  const onZoomEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
+  // const onZoomEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   const onMoveEvent = Animated.event(
     [{ nativeEvent: { translationX: pan.x, translationY: pan.y } }],
     { useNativeDriver: true }
@@ -99,54 +99,64 @@ const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, col
   };
 
   const onMoveStateChange = (event) => {
-    console.log('------> Move: ', { event: event.nativeEvent });
-
-    console.log('----6(State.ACTIVE)');
-
-    pan.x = event.nativeEvent.x;
-    pan.y = event.nativeEvent.y;
+ /*   console.log('------> Move: ', { event: event.nativeEvent });
+    if (event.nativeEvent.state === State.ACTIVE) {
+  
+      console.log('----2(State.ACTIVE)');
+      pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
+    }*/
+     if (event.nativeEvent.state === State.BEGAN) {
+       pan.setOffset({
+        x: pan.x._value,
+        y: pan.y._value
+      });
+      //
+    }
+    if (event.nativeEvent.state === State.ACTIVE) {
+      // pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
+      // pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
+      // pan.x._value = event.nativeEvent.x
+      // pan.y._value = event.nativeEvent.y
+  
+      console.log(({
+        x: pan.x._value,
+        y: pan.y._value,
+        xE: event.nativeEvent.x,
+        yE: event.nativeEvent.y
+      }))
+      // pan.setValue(0);
+    }
+  if (event.nativeEvent.state === State.END) {
+    pan.flattenOffset();
+  
+  }
   };
 
   return (
     <PanGestureHandler
       onGestureEvent={onMoveEvent}
       onHandlerStateChange={onMoveStateChange}
-      minPointers={2}
-      maxPointers={2}
+      hitSlop={{left: -20, right: -20, top: -20, bottom: -20}}
     >
       <Animated.View
         style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }],
-          zIndex: 20000
+          transform: [{ translateX: pan.x }, { translateY: pan.y }]
         }}
       >
-        <TapGestureHandler
-          onGestureEvent={onZoomEvent}
-          onHandlerStateChange={onZoomStateChange}
-          minPointers={1}
-          maxPointers={1}
-        >
-          <Animated.View
-            style={{
-              transform: [{ scale }]
-            }}
+        <FigureTouchableContainer onPress={touchFigureHandle} useForeground>
+          <FigureContainerBgn
+            source={require('../../../assets/figura_base.png')}
+            width={w}
+            height={h}
           >
-            <FigureTouchableContainer onPress={touchFigureHandle} useForeground>
-              <FigureContainerBgn
-                source={require('../../../assets/figura_base.png')}
-                width={w}
-                height={h}
-              >
-                <FigureContainer>
-                  <Shape size={size.big} shape={shapeBig} color={colorBig} />
-                </FigureContainer>
-                <SecondShape>
-                  <Shape size={size.small} shape={shapeSmall} color={colorSmall} />
-                </SecondShape>
-              </FigureContainerBgn>
-            </FigureTouchableContainer>
-          </Animated.View>
-        </TapGestureHandler>
+            <FigureContainer>
+              <Shape size={size.big} shape={shapeBig} color={colorBig} />
+            </FigureContainer>
+            <SecondShape>
+              <Shape size={size.small} shape={shapeSmall} color={colorSmall} />
+            </SecondShape>
+          </FigureContainerBgn>
+        </FigureTouchableContainer>
       </Animated.View>
     </PanGestureHandler>
   );
