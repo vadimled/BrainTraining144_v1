@@ -11,139 +11,93 @@ import {
   SecondShape,
   FigureContainerBgn
 } from './Figure.styled';
-import { Animated, Dimensions, PanResponder } from 'react-native';
-import Shape from '../shape';
+import {  Dimensions} from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated'
+import Shape from "../shape";
 import { size } from '../../utils/constants';
-import { TapGestureHandler, PanGestureHandler, State } from 'react-native-gesture-handler';
+
+const CARDWIDTH = moderateScale(120);
+const CARDHEIGHT = moderateScale(160);
 
 const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, colorSmall } }) => {
-  const [action, setAction] = useState(false);
+  const [action, setAction] = useState(0);
 
   useEffect(() => {
     setDragging(true);
   }, []);
-
-  // const scale = useRef(new Animated.Value(1)).current;
-  const pan = useRef(new Animated.ValueXY()).current;
-  // const panResponder = useRef(
-  //   PanResponder.create({
-  //     onStartShouldSetPanResponder: () => true,
-  //     onMoveShouldSetPanResponder: () => true,
-  //     onPanResponderTerminate: () => false,
-  //     onPanResponderGrant: () => {
-  //       setDragging(false);
-  //       pan.setOffset({
-  //         x: pan.x._value,
-  //         y: pan.y._value
-  //       });
-  //     },
-  //     onPanResponderMove: (evt, gestureState) => {
-  //       // do whatever you need here
-  //       // be sure to return the Animated.event as it returns a function
-  //       return Animated.event(
-  //         [
-  //           null,
-  //           { dx: pan.x, dy: pan.y }
-  //         ]
-  //       )(evt, gestureState);
-  //     },
-  //     onPanResponderRelease: () => {
-  //       setDragging(true);
-  //       pan.flattenOffset();
-  //     }
-  //   })
-  // ).current;
-
+  
+  const { cond, eq, add, set, Value, event } = Animated;
+  let
+  dragX = useRef(new Value(0)).current,
+  dragY = useRef(new Value(0)).current,
+  offsetX = useRef(new Value(0)).current,
+  offsetY = useRef(new Value(0)).current,
+  gestureState = useRef(new Value(-1)).current,
+  onGestureEvent = event([{
+    nativeEvent: {
+      translationX: dragX,
+      translationY: dragY,
+      state: gestureState,
+    }
+  }]),
+  transX = cond(
+    eq(gestureState, State.ACTIVE),
+    add(offsetX, dragX),
+    set(offsetX, add(offsetX, dragX)),
+  ),
+  transY = cond(
+    eq(gestureState, State.ACTIVE),
+    add(offsetY, dragY),
+    set(offsetY, add(offsetY, dragY)),
+  );
   const screenWidth = Math.round(Dimensions.get('window').width);
   const w = screenWidth / 5 - 8;
-  const h = (w - 8) * 1.1;
-
-  const touchFigureHandle = () => {
-    console.log('-----touchFigureHandle  id=', { id });
-  };
-  let counter = 0;
-  // const onZoomEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
-  const onMoveEvent = Animated.event(
-    [{ nativeEvent: { translationX: pan.x, translationY: pan.y } }],
-    { useNativeDriver: true }
-  );
-
-  const onZoomStateChange = (event) => {
-    console.log('------> Zoom : ', { counter, action, eState: event.nativeEvent.state });
-
-    if (event.nativeEvent.state === State.BEGAN && !action) {
-      console.log('----1 action:', action);
-      Animated.timing(scale, {
-        duration: 1000,
-        toValue: 1.1,
-        useNativeDriver: true
-      }).start(() => {
-        setAction(true);
-        setDragging(false);
-        console.log('----2 action:', action);
-      });
-    } else if (event.nativeEvent.state === State.END && !action) {
-      console.log('----3(START ACTION) action=', action);
-      setAction(false);
-      setDragging(true);
-      Animated.spring(scale, {
-        toValue: 1,
-        useNativeDriver: true
-      }).start(() => console.log('----4(END ACTION) action=', action) || setDragging(true));
-    }
-    if (action && event.nativeEvent.state === State.BEGAN) {
-      console.log('----5(State.ACTIVE)');
-      pan.setValue({ x: event.nativeEvent.x, y: event.nativeEvent.y });
-    }
-    counter++;
-  };
-
+  const h = (w - 8) * 1.1
   const onMoveStateChange = (event) => {
- /*   console.log('------> Move: ', { event: event.nativeEvent });
-    if (event.nativeEvent.state === State.ACTIVE) {
-  
-      console.log('----2(State.ACTIVE)');
-      pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
-    }*/
-     if (event.nativeEvent.state === State.BEGAN) {
-       pan.setOffset({
-        x: pan.x._value,
-        y: pan.y._value
-      });
+   console.log('------> Move: ', { event: event.nativeEvent });
+       /*    if (event.nativeEvent.state === State.ACTIVE) {
+     
+         console.log('----2(State.ACTIVE)');
+         pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
+       }*/
+    if (event.nativeEvent.state === State.BEGAN) {
+      // pan.setOffset({
+      //   x: pan.x._value,
+      //   y: pan.y._value
+      // });
       //
+     
     }
     if (event.nativeEvent.state === State.ACTIVE) {
       // pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
       // pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
       // pan.x._value = event.nativeEvent.x
       // pan.y._value = event.nativeEvent.y
-  
+      setAction(State.ACTIVE)
       console.log(({
-        x: pan.x._value,
-        y: pan.y._value,
         xE: event.nativeEvent.x,
         yE: event.nativeEvent.y
       }))
       // pan.setValue(0);
     }
-  if (event.nativeEvent.state === State.END) {
-    pan.flattenOffset();
-  
-  }
+    if (event.nativeEvent.state === State.END) {
+      // pan.flattenOffset();
+      setAction(State.END)
+    }
   };
-
+  console.log("----> action=",action)
   return (
     <PanGestureHandler
-      onGestureEvent={onMoveEvent}
+      onGestureEvent={onGestureEvent}
       onHandlerStateChange={onMoveStateChange}
       hitSlop={{left: -20, right: -20, top: -20, bottom: -20}}
     >
       <Animated.View
-        style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }]
-        }}
+        style={{transform: [{translateX: transX}, {translateY: transY}]}}
       >
-        <FigureTouchableContainer onPress={touchFigureHandle} useForeground>
+        <FigureTouchableContainer useForeground isActivated={action === State.ACTIVE}>
           <FigureContainerBgn
             source={require('../../../assets/figura_base.png')}
             width={w}
