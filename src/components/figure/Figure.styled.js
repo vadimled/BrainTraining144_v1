@@ -1,8 +1,6 @@
 import styled from 'styled-components/native';
 
 export const FigureTouchableContainer = styled.TouchableOpacity`
-  position: ${(props) => console.log('------> props.isActivated: ', props.isActivated) ||  (props.isActivated ? `absolute` : `relative`)};
-  z-index: ${(props) => (props.isActivated ? `1000000` : `0`)};
   margin: 8px;
 `;
 export const FigureContainerBgn = styled.ImageBackground`
@@ -20,6 +18,7 @@ export const FigureContainer = styled.View`
   align-items: center;
   position: relative;
   background-color: transparent;
+  z-index: 0;
 `;
 export const SecondShape = styled.View`
   position: absolute;

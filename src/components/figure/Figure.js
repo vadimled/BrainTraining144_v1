@@ -25,6 +25,12 @@ const Figure = ({ setDragging, onBlur, config: { id, shapeBig, colorBig, shapeSm
     setDragging(true);
   }, []);
   
+  useEffect(() => {
+    if(action){
+      onBlur(true);
+    }
+  }, [action]);
+  
   const { cond, eq, add, set, Value, event } = Animated;
   let
   dragX = useRef(new Value(0)).current,
@@ -84,7 +90,7 @@ const Figure = ({ setDragging, onBlur, config: { id, shapeBig, colorBig, shapeSm
       setAction(State.END)
     }
   };
-  console.log("----> action=",action)
+  console.log("-:93---> action=",action)
   return (
     <PanGestureHandler
       onGestureEvent={onGestureEvent}
@@ -92,9 +98,9 @@ const Figure = ({ setDragging, onBlur, config: { id, shapeBig, colorBig, shapeSm
       hitSlop={{left: -20, right: -20, top: -20, bottom: -20}}
     >
       <Animated.View
-        style={{transform: [{translateX: transX}, {translateY: transY}]}}
+        style={{transform: [{translateX: transX}, {translateY: transY}], zIndex: action === State.ACTIVE ? 1000 : 0}}
       >
-        <FigureTouchableContainer useForeground isActivated={action === State.ACTIVE}>
+        <FigureTouchableContainer useForeground >
           <FigureContainerBgn
             source={require('../../../assets/figura_base.png')}
             width={w}

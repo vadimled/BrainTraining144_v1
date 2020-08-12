@@ -38,14 +38,14 @@ const FiguresField = ({ list }) => {
               />
             );
           })}
+          {overlayFlag && (
+            <BlurView
+              intensity={90}
+              style={[StyleSheet.absoluteFill, styles.absolute]}
+              tint={'dark'}
+            />
+          )}
         </ScrollView>
-        {overlayFlag && (
-          <BlurView
-            intensity={90}
-            style={[StyleSheet.absoluteFill, styles.absolute]}
-            tint={'dark'}
-          />
-        )}
       </View>
     </SafeAreaView>
   );
@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   },
   absolute: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    zIndex: 200
   }
 });
 export default FiguresField;
