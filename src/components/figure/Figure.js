@@ -12,16 +12,13 @@ import {
   FigureContainerBgn
 } from './Figure.styled';
 import {  Dimensions} from 'react-native';
-import { moderateScale } from 'react-native-size-matters';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated'
 import Shape from "../shape";
 import { size } from '../../utils/constants';
 
-const CARDWIDTH = moderateScale(120);
-const CARDHEIGHT = moderateScale(160);
 
-const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, colorSmall } }) => {
+const Figure = ({ setDragging, onBlur, config: { id, shapeBig, colorBig, shapeSmall, colorSmall } }) => {
   const [action, setAction] = useState(0);
 
   useEffect(() => {

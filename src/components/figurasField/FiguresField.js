@@ -5,12 +5,20 @@
  */
 
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
+import { StyleSheet, SafeAreaView, ScrollView, View, Image } from 'react-native';
 import Figure from '../figure';
+import { BlurView } from 'expo-blur';
+// import {BlurView} from "@react-native-community/blur/index"
 // import {GuessContainer} from "../../screens/gameScreen/GameScreen.styled"
 
 const FiguresField = ({ list }) => {
   const [isDragging, setDragging] = useState(false);
+  const [overlayFlag, setOverlayFlag] = useState(false);
+
+  const handleBlur = () => {
+    setOverlayFlag(!overlayFlag);
+  };
+
   const setDraggingHandle = (val) => {
     console.log('--------> ', val);
     setDragging(val);
@@ -21,9 +29,23 @@ const FiguresField = ({ list }) => {
       <View style={styles.gameContainer}>
         <ScrollView contentContainerStyle={styles.scrolledContainer} scrollEnabled={isDragging}>
           {list.map((item, index) => {
-            return <Figure key={index} config={item} setDragging={setDraggingHandle} />;
+            return (
+              <Figure
+                key={index}
+                config={item}
+                setDragging={setDraggingHandle}
+                onBlur={handleBlur}
+              />
+            );
           })}
         </ScrollView>
+        {overlayFlag && (
+          <BlurView
+            intensity={90}
+            style={[StyleSheet.absoluteFill, styles.absolute]}
+            tint={'dark'}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
@@ -54,6 +76,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     zIndex: 200
+  },
+  absolute: {
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 export default FiguresField;
