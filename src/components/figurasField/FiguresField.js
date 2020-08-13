@@ -4,7 +4,7 @@
  * created on 16/07/2020
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet, SafeAreaView, ScrollView, View, Image } from 'react-native';
 import Figure from '../figure';
 import { BlurView } from 'expo-blur';
@@ -14,9 +14,13 @@ import { BlurView } from 'expo-blur';
 const FiguresField = ({ list }) => {
   const [isDragging, setDragging] = useState(false);
   const [overlayFlag, setOverlayFlag] = useState(false);
-
+  const scrollRef = useRef().current;
   const handleBlur = () => {
     setOverlayFlag(!overlayFlag);
+    scrollRef?.scrollTo({
+      y: 0,
+      animated: true
+    });
   };
 
   const setDraggingHandle = (val) => {
@@ -27,7 +31,11 @@ const FiguresField = ({ list }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.guessContainer} />
       <View style={styles.gameContainer}>
-        <ScrollView contentContainerStyle={styles.scrolledContainer} scrollEnabled={isDragging}>
+        <ScrollView
+          contentContainerStyle={styles.scrolledContainer}
+          scrollEnabled={isDragging}
+          ref={scrollRef}
+        >
           {list.map((item, index) => {
             return (
               <Figure

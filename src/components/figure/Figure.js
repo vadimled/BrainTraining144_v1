@@ -11,96 +11,61 @@ import {
   SecondShape,
   FigureContainerBgn
 } from './Figure.styled';
-import {  Dimensions} from 'react-native';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated'
-import Shape from "../shape";
+import { Animated, Dimensions, StyleSheet } from 'react-native';
+import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
+import Shape from '../shape';
 import { size } from '../../utils/constants';
 
-
-const Figure = ({ setDragging, onBlur, config: { id, shapeBig, colorBig, shapeSmall, colorSmall } }) => {
+const Figure = ({
+  setDragging,
+  onBlur,
+  config: { id, shapeBig, colorBig, shapeSmall, colorSmall }
+}) => {
   const [action, setAction] = useState(0);
+  let scale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     setDragging(true);
   }, []);
-  
+
   useEffect(() => {
-    if(action){
+    if (action) {
       onBlur(true);
+      Animated.timing(scale, {
+        toValue: 2,
+        duration: 1000,
+        useNativeDriver: true
+      }).start();
     }
   }, [action]);
-  
-  const { cond, eq, add, set, Value, event } = Animated;
-  let
-  dragX = useRef(new Value(0)).current,
-  dragY = useRef(new Value(0)).current,
-  offsetX = useRef(new Value(0)).current,
-  offsetY = useRef(new Value(0)).current,
-  gestureState = useRef(new Value(-1)).current,
-  onGestureEvent = event([{
-    nativeEvent: {
-      translationX: dragX,
-      translationY: dragY,
-      state: gestureState,
-    }
-  }]),
-  transX = cond(
-    eq(gestureState, State.ACTIVE),
-    add(offsetX, dragX),
-    set(offsetX, add(offsetX, dragX)),
-  ),
-  transY = cond(
-    eq(gestureState, State.ACTIVE),
-    add(offsetY, dragY),
-    set(offsetY, add(offsetY, dragY)),
-  );
+
+  const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
+
   const screenWidth = Math.round(Dimensions.get('window').width);
   const w = screenWidth / 5 - 8;
-  const h = (w - 8) * 1.1
+  const h = (w - 8) * 1.1;
   const onMoveStateChange = (event) => {
-   console.log('------> Move: ', { event: event.nativeEvent });
-       /*    if (event.nativeEvent.state === State.ACTIVE) {
-     
-         console.log('----2(State.ACTIVE)');
-         pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
-       }*/
-    if (event.nativeEvent.state === State.BEGAN) {
-      // pan.setOffset({
-      //   x: pan.x._value,
-      //   y: pan.y._value
-      // });
-      //
-     
-    }
+    // console.log("Y=",event.nativeEvent.y)
+    console.log(event.nativeEvent)
     if (event.nativeEvent.state === State.ACTIVE) {
-      // pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
-      // pan.setValue({x: event.nativeEvent.x, y: event.nativeEvent.y});
-      // pan.x._value = event.nativeEvent.x
-      // pan.y._value = event.nativeEvent.y
-      setAction(State.ACTIVE)
-      console.log(({
-        xE: event.nativeEvent.x,
-        yE: event.nativeEvent.y
-      }))
-      // pan.setValue(0);
-    }
-    if (event.nativeEvent.state === State.END) {
-      // pan.flattenOffset();
-      setAction(State.END)
+ 
+      setAction(State.ACTIVE);
     }
   };
-  console.log("-:93---> action=",action)
   return (
-    <PanGestureHandler
+    <LongPressGestureHandler
       onGestureEvent={onGestureEvent}
       onHandlerStateChange={onMoveStateChange}
-      hitSlop={{left: -20, right: -20, top: -20, bottom: -20}}
+      minDurationMs={700}
+      maxDist={10}
     >
       <Animated.View
-        style={{transform: [{translateX: transX}, {translateY: transY}], zIndex: action === State.ACTIVE ? 1000 : 0}}
+        style={[
+          action === State.ACTIVE ? styles.absolute : styles.relative,
+          { transform: [{ scale }] }
+        ]}
       >
-        <FigureTouchableContainer useForeground >
+        <FigureTouchableContainer useForeground>
           <FigureContainerBgn
             source={require('../../../assets/figura_base.png')}
             width={w}
@@ -115,8 +80,19 @@ const Figure = ({ setDragging, onBlur, config: { id, shapeBig, colorBig, shapeSm
           </FigureContainerBgn>
         </FigureTouchableContainer>
       </Animated.View>
-    </PanGestureHandler>
+    </LongPressGestureHandler>
   );
 };
-
+const styles = StyleSheet.create({
+  absolute: {
+    zIndex: 1000,
+    position: 'absolute',
+    left: Dimensions.get('window').width / 2 - 25,
+    top: 100
+  },
+  relative: {
+    position: 'relative',
+    zIndex: 0
+  }
+});
 export default Figure;
