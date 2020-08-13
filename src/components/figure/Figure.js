@@ -45,10 +45,7 @@ const Figure = ({
   const w = screenWidth / 5 - 8;
   const h = (w - 8) * 1.1;
   const onMoveStateChange = (event) => {
-    // console.log("Y=",event.nativeEvent.y)
-    console.log(event.nativeEvent)
     if (event.nativeEvent.state === State.ACTIVE) {
- 
       setAction(State.ACTIVE);
     }
   };
@@ -61,7 +58,7 @@ const Figure = ({
     >
       <Animated.View
         style={[
-          action === State.ACTIVE ? styles.absolute : styles.relative,
+          action === State.ACTIVE ? styles.absolute(w) : styles.relative,
           { transform: [{ scale }] }
         ]}
       >
@@ -84,12 +81,12 @@ const Figure = ({
   );
 };
 const styles = StyleSheet.create({
-  absolute: {
+  absolute: (w) => ({
     zIndex: 1000,
     position: 'absolute',
-    left: Dimensions.get('window').width / 2 - 25,
+    left: Dimensions.get('window').width / 2 - w / 2,
     top: 100
-  },
+  }),
   relative: {
     position: 'relative',
     zIndex: 0

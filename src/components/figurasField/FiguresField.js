@@ -14,10 +14,10 @@ import { BlurView } from 'expo-blur';
 const FiguresField = ({ list }) => {
   const [isDragging, setDragging] = useState(false);
   const [overlayFlag, setOverlayFlag] = useState(false);
-  const scrollRef = useRef().current;
+  const scrollRef = useRef();
   const handleBlur = () => {
     setOverlayFlag(!overlayFlag);
-    scrollRef?.scrollTo({
+    scrollRef.current?.scrollTo({
       y: 0,
       animated: true
     });
