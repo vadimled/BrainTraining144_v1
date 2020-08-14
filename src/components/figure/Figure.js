@@ -9,12 +9,14 @@ import {
   FigureContainer,
   FigureTouchableContainer,
   SecondShape,
-  FigureContainerBgn
+  FigureContainerBgn,
+  ActionsContainer
 } from './Figure.styled';
 import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import Shape from '../shape';
 import { size } from '../../utils/constants';
+import FigureAction from "../figureAction"
 
 const Figure = ({
   setDragging,
@@ -33,7 +35,7 @@ const Figure = ({
       onBlur(true);
       Animated.timing(scale, {
         toValue: 2,
-        duration: 1000,
+        duration: 800,
         useNativeDriver: true
       }).start();
     }
@@ -42,42 +44,50 @@ const Figure = ({
   const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
 
   const screenWidth = Math.round(Dimensions.get('window').width);
-  const w = screenWidth / 5 - 8;
+  const w = screenWidth / 6 - 8;
   const h = (w - 8) * 1.1;
   const onMoveStateChange = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
       setAction(State.ACTIVE);
     }
   };
+  console.log('Width/Height: ', { w, h });
   return (
-    <LongPressGestureHandler
-      onGestureEvent={onGestureEvent}
-      onHandlerStateChange={onMoveStateChange}
-      minDurationMs={700}
-      maxDist={10}
-    >
-      <Animated.View
-        style={[
-          action === State.ACTIVE ? styles.absolute(w) : styles.relative,
-          { transform: [{ scale }] }
-        ]}
+    <>
+      <LongPressGestureHandler
+        onGestureEvent={onGestureEvent}
+        onHandlerStateChange={onMoveStateChange}
+        minDurationMs={700}
+        maxDist={10}
       >
-        <FigureTouchableContainer useForeground>
-          <FigureContainerBgn
-            source={require('../../../assets/figura_base.png')}
-            width={w}
-            height={h}
-          >
-            <FigureContainer>
-              <Shape size={size.big} shape={shapeBig} color={colorBig} />
-            </FigureContainer>
-            <SecondShape>
-              <Shape size={size.small} shape={shapeSmall} color={colorSmall} />
-            </SecondShape>
-          </FigureContainerBgn>
-        </FigureTouchableContainer>
-      </Animated.View>
-    </LongPressGestureHandler>
+        <Animated.View
+          style={[
+            action === State.ACTIVE ? styles.absolute(w) : styles.relative,
+            { transform: [{ scale }] }
+          ]}
+        >
+          <FigureTouchableContainer useForeground>
+            <FigureContainerBgn
+              source={require('../../../assets/figura_base.png')}
+              width={w}
+              height={h}
+            >
+              <FigureContainer>
+                <Shape size={size.big} shape={shapeBig} color={colorBig} />
+              </FigureContainer>
+              <SecondShape>
+                <Shape size={size.small} shape={shapeSmall} color={colorSmall} />
+              </SecondShape>
+            </FigureContainerBgn>
+          </FigureTouchableContainer>
+        </Animated.View>
+      </LongPressGestureHandler>
+
+      <ActionsContainer width={w} height={h} screenWidth={Dimensions.get('window').width} >
+        <FigureAction />
+        <FigureAction />
+      </ActionsContainer>
+    </>
   );
 };
 const styles = StyleSheet.create({
