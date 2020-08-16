@@ -16,7 +16,11 @@ import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import Shape from '../shape';
 import { size } from '../../utils/constants';
-import FigureAction from "../figureAction"
+import FigureAction from '../figureAction';
+import { ReactComponent as IconClose } from '../../../assets/Close.svg';
+import { ReactComponent as IconCheck } from '../../../assets/Check.svg';
+
+const IconCloseContent = () => <IconClose />;
 
 const Figure = ({
   setDragging,
@@ -51,6 +55,10 @@ const Figure = ({
       setAction(State.ACTIVE);
     }
   };
+  const handleAction = (event) => {
+    console.log(1, event.target);
+  };
+
   console.log('Width/Height: ', { w, h });
   return (
     <>
@@ -83,10 +91,12 @@ const Figure = ({
         </Animated.View>
       </LongPressGestureHandler>
 
-      <ActionsContainer width={w} height={h} screenWidth={Dimensions.get('window').width} >
-        <FigureAction />
-        <FigureAction />
-      </ActionsContainer>
+      {action === State.ACTIVE && (
+        <ActionsContainer width={w} height={h} screenWidth={Dimensions.get('window').width}>
+          <FigureAction onClose={handleAction} />
+          <FigureAction onClose={handleAction} />
+        </ActionsContainer>
+      )}
     </>
   );
 };

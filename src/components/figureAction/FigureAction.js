@@ -5,15 +5,14 @@
  */
 
 import React from 'react';
-import {FigureActionContainer} from './FigureAction.styled';
-import {Text} from 'react-native';
+import {FigureActionContainer, FigureBase, FigureActionIcon} from './FigureAction.styled';
 
-const FigureAction = () => {
+
+const FigureAction = ({onClose}) => {
+
   return (
-    <FigureActionContainer>
-      <Text>
-        FigureAction
-      </Text>
+    <FigureActionContainer onPress={onClose} activeOpacity={0.1} style={{shadowRadius: 2}}>
+ 
     </FigureActionContainer>
   );
 };
