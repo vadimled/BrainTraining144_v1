@@ -4,93 +4,130 @@
  * created on 16/07/2020
  */
 
-import React, { useRef, useState} from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   FigureContainer,
   FigureTouchableContainer,
   SecondShape,
-  FigureContainerBgn
+  FigureContainerBgn,
+  ActionsContainer
 } from './Figure.styled';
-import { Animated, Dimensions, PanResponder } from 'react-native';
+import { Animated, Dimensions, StyleSheet } from 'react-native';
+import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import Shape from '../shape';
-import { size } from '../../utils/constants';
-import {State} from "react-native-gesture-handler"
+import { COLORS, size, TEXT } from '../../utils/constants';
+import { AntDesign } from '@expo/vector-icons';
 
-const Figure = ({ setDragging, config: { id, shapeBig, colorBig, shapeSmall, colorSmall } }) => {
-  const [action, setAction] = useState(false);
-  const pan = useRef(new Animated.ValueXY()).current;
-  const scale = useRef(new Animated.Value(1)).current;
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderTerminate: () => false,
-      onPanResponderGrant: () => {
-        Animated.timing(scale, {
-          duration: 1000,
-          toValue: 1.1
-        }).start(() => {
-          setAction(true);
-          // setDragging(false);
-          console.log('----2 action:', action);
-        });
-    
-     
+const Figure = ({
+                  setDragging,
+                  onBlur,
+                  config: { shapeBig, colorBig, shapeSmall, colorSmall }
+                }) => {
+  const [action, setAction] = useState(0);
+  let scale = useRef(new Animated.Value(1)).current;
   
-        setDragging(false);
-        // pan.setOffset({
-        //   x: pan.x._value,
-        //   y: pan.y._value
-        // });
-      },
-      onPanResponderMove: Animated.event([{ nativeEvent: { scale } }]),
-      onPanResponderRelease: () => {
-        setDragging(true);
-        // pan.flattenOffset();
-        if (!action) {
-          console.log('----3(START ACTION) action=', action)
-          setAction(false);
-          setDragging(true);
-          Animated.spring(scale, {
-            toValue: 1
-          }).start(() => console.log('----4(END ACTION) action=', action) || setDragging(true));
-        }
+  useEffect(() => {
+    setDragging(true);
+  }, []);
   
-      }
-    })
-  ).current;
+  useEffect(() => {
+    if (action === State.ACTIVE) {
+      onBlur(true);
+      Animated.timing(scale, {
+        toValue: 2,
+        duration: 800,
+        useNativeDriver: true
+      }).start();
+    } else if (action === State.END) {
+      onBlur(false);
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true
+      }).start();
+      setAction(null);
+    }
+  }, [action]);
+  
+  const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   
   const screenWidth = Math.round(Dimensions.get('window').width);
-  const w = screenWidth / 5 - 8;
+  const w = screenWidth / 6 - 8;
   const h = (w - 8) * 1.1;
-
-  const touchFigureHandle = () => {
-    console.log({ id });
+  const onMoveStateChange = (event) => {
+    if (event.nativeEvent.state === State.ACTIVE) {
+      setAction(State.ACTIVE);
+    }
   };
+  const handleAction = (action) => {
+    if (action === TEXT.close) {
+      setAction(State.END);
+    }
+  };
+  
   return (
-    <Animated.View
-      style={{
-        transform: [{ scale }],
-        zIndex:2
-      }}
-      {...panResponder.panHandlers}
-    >
-      <FigureTouchableContainer onPress={touchFigureHandle} useForeground>
-        <FigureContainerBgn
-          source={require('../../../assets/figura_base.png')}
-          width={w}
-          height={h}
+    <>
+      <LongPressGestureHandler
+        onGestureEvent={onGestureEvent}
+        onHandlerStateChange={onMoveStateChange}
+        minDurationMs={700}
+        maxDist={10}
+      >
+        <Animated.View
+          style={[
+            action === State.ACTIVE ? styles.absolute(w) : styles.relative,
+            { transform: [{ scale }] }
+          ]}
         >
-          <FigureContainer>
-            <Shape size={size.big} shape={shapeBig} color={colorBig} />
-          </FigureContainer>
-          <SecondShape>
-            <Shape size={size.small} shape={shapeSmall} color={colorSmall} />
-          </SecondShape>
-        </FigureContainerBgn>
-      </FigureTouchableContainer>
-    </Animated.View>
+          <FigureTouchableContainer useForeground>
+            <FigureContainerBgn
+              source={require('../../../assets/figura_base.png')}
+              width={w}
+              height={h}
+            >
+              <FigureContainer>
+                <Shape size={size.big} shape={shapeBig} color={colorBig} />
+              </FigureContainer>
+              <SecondShape>
+                <Shape size={size.small} shape={shapeSmall} color={colorSmall} />
+              </SecondShape>
+            </FigureContainerBgn>
+          </FigureTouchableContainer>
+        </Animated.View>
+      </LongPressGestureHandler>
+      
+      {action === State.ACTIVE && (
+        <ActionsContainer width={w} height={h} screenWidth={Dimensions.get('window').width}>
+          <AntDesign.Button
+            onPress={() => handleAction(TEXT.check)}
+            name="check"
+            size={30}
+            color={COLORS.shape4}
+            iconStyle={{ marginRight: 0 }}
+            backgroundColor="#f5e6c5"
+          />
+          <AntDesign.Button
+            onPress={() => handleAction(TEXT.close)}
+            name="close"
+            size={30}
+            color={COLORS.shape3}
+            iconStyle={{ marginRight: 0 }}
+            backgroundColor="#f5e6c5"
+          />
+        </ActionsContainer>
+      )}
+    </>
   );
 };
-
+const styles = StyleSheet.create({
+  absolute: (w) => ({
+    zIndex: 1000,
+    position: 'absolute',
+    left: Dimensions.get('window').width / 2 - w / 2,
+    top: 100
+  }),
+  relative: {
+    position: 'relative',
+    zIndex: 0
+  }
+});
 export default Figure;
