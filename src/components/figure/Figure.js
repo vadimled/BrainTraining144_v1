@@ -15,14 +15,13 @@ import {
 import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import Shape from '../shape';
-import {COLORS, size, TEXT} from '../../utils/constants';
-import FigureAction from '../figureAction';
+import { COLORS, size, TEXT } from '../../utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 
 const Figure = ({
   setDragging,
   onBlur,
-  config: { id, shapeBig, colorBig, shapeSmall, colorSmall }
+  config: { shapeBig, colorBig, shapeSmall, colorSmall }
 }) => {
   const [action, setAction] = useState(0);
   let scale = useRef(new Animated.Value(1)).current;
@@ -39,7 +38,7 @@ const Figure = ({
         duration: 800,
         useNativeDriver: true
       }).start();
-    } else if(action === State.END){
+    } else if (action === State.END) {
       onBlur(false);
       Animated.spring(scale, {
         toValue: 1,
@@ -59,8 +58,8 @@ const Figure = ({
       setAction(State.ACTIVE);
     }
   };
-  const handleAction = action => {
-    if(action === TEXT.close){
+  const handleAction = (action) => {
+    if (action === TEXT.close) {
       setAction(State.END);
     }
   };
