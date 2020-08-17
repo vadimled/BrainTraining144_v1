@@ -10,7 +10,7 @@ import FiguresField from '../../components/figurasField';
 import { getFiguresByCurrentType } from '../../store/selectors';
 import { connect } from 'react-redux';
 
-const GameScreen = ({ route, array }) => {
+const GameScreen = ({ array }) => {
   return (
     <GameScreenContainer source={require('../../../assets/background.png')}>
       <FiguresField list={array} />
