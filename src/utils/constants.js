@@ -31,11 +31,16 @@ export const NUMBERS = {
   prefixIconSize: 24
 };
 
+export const TEXT = {
+  check: 'check',
+  close: 'close'
+};
+
 export const config = {
   type: {
     easy: {
       gameField: 42,
-      guessField: 4,
+      guessField: 4
     },
     medium: {
       gameField: 70,
@@ -53,4 +58,4 @@ export const basicColors = [COLORS.shape1, COLORS.shape2, COLORS.shape3, COLORS.
 export const size = {
   big: { width: 40, height: 40 },
   small: { width: 22, height: 22 }
-}
+};

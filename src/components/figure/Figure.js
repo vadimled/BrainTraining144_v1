@@ -15,12 +15,9 @@ import {
 import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import Shape from '../shape';
-import { size } from '../../utils/constants';
+import {COLORS, size, TEXT} from '../../utils/constants';
 import FigureAction from '../figureAction';
-import { ReactComponent as IconClose } from '../../../assets/Close.svg';
-import { ReactComponent as IconCheck } from '../../../assets/Check.svg';
-
-const IconCloseContent = () => <IconClose />;
+import { AntDesign } from '@expo/vector-icons';
 
 const Figure = ({
   setDragging,
@@ -35,13 +32,20 @@ const Figure = ({
   }, []);
 
   useEffect(() => {
-    if (action) {
+    if (action === State.ACTIVE) {
       onBlur(true);
       Animated.timing(scale, {
         toValue: 2,
         duration: 800,
         useNativeDriver: true
       }).start();
+    } else if(action === State.END){
+      onBlur(false);
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true
+      }).start();
+      setAction(null);
     }
   }, [action]);
 
@@ -55,11 +59,12 @@ const Figure = ({
       setAction(State.ACTIVE);
     }
   };
-  const handleAction = (event) => {
-    console.log(1, event.target);
+  const handleAction = action => {
+    if(action === TEXT.close){
+      setAction(State.END);
+    }
   };
 
-  console.log('Width/Height: ', { w, h });
   return (
     <>
       <LongPressGestureHandler
@@ -93,8 +98,22 @@ const Figure = ({
 
       {action === State.ACTIVE && (
         <ActionsContainer width={w} height={h} screenWidth={Dimensions.get('window').width}>
-          <FigureAction onClose={handleAction} />
-          <FigureAction onClose={handleAction} />
+          <AntDesign.Button
+            onPress={() => handleAction(TEXT.check)}
+            name="check"
+            size={30}
+            color={COLORS.shape4}
+            iconStyle={{ marginRight: 0 }}
+            backgroundColor="#f5e6c5"
+          />
+          <AntDesign.Button
+            onPress={() => handleAction(TEXT.close)}
+            name="close"
+            size={30}
+            color={COLORS.shape3}
+            iconStyle={{ marginRight: 0 }}
+            backgroundColor="#f5e6c5"
+          />
         </ActionsContainer>
       )}
     </>
