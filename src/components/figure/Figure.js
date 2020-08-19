@@ -19,16 +19,11 @@ import { COLORS, size, TEXT } from '../../utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 
 const Figure = ({
-  setDragging,
   onBlur,
   config: { shapeBig, colorBig, shapeSmall, colorSmall }
 }) => {
   const [action, setAction] = useState(0);
   let scale = useRef(new Animated.Value(1)).current;
-
-  useEffect(() => {
-    setDragging(true);
-  }, []);
 
   useEffect(() => {
     if (action === State.ACTIVE) {

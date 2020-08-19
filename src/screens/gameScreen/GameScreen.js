@@ -7,20 +7,14 @@
 import React from 'react';
 import { GameScreenContainer } from './GameScreen.styled';
 import FiguresField from '../../components/figurasField';
-import { getFiguresByCurrentType } from '../../store/selectors';
-import { connect } from 'react-redux';
 
-const GameScreen = ({ array }) => {
+const GameScreen = () => {
   return (
     <GameScreenContainer source={require('../../../assets/background.png')}>
-      <FiguresField list={array} />
+      <FiguresField />
     </GameScreenContainer>
   );
 };
 
-const mapStateFromProps = (state) => {
-  return {
-    array: getFiguresByCurrentType(state)
-  };
-};
-export default connect(mapStateFromProps)(GameScreen);
+
+export default GameScreen;
