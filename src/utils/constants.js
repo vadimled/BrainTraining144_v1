@@ -1,10 +1,3 @@
-export const DB_FETCH = 'DB_FETCH';
-export const DB_FETCH_SUCCESS = 'DB_FETCH_SUCCESS';
-export const DB_FETCH_FAILED = 'DB_FETCH_FAILED';
-
-export const SET_NAME_REGISTER = 'SET_NAME_REGISTER';
-export const SET_NAME_LOGIN = 'SET_NAME_LOGIN';
-
 export const COLORS = {
   tableFont: '#c1c1c1',
   tableFont100: '#E5E5E5',
