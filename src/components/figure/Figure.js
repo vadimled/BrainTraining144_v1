@@ -15,31 +15,41 @@ import {
 import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import Shape from '../shape';
-import { COLORS, size, TEXT } from '../../utils/constants';
+import { COLORS, size, TEXT, CONFIG } from '../../utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 
 const Figure = ({
   onBlur,
-  config: { shapeBig, colorBig, shapeSmall, colorSmall }
+  onCheckFigure,
+  config: { id, shapeBig, colorBig, shapeSmall, colorSmall }
 }) => {
   const [action, setAction] = useState(0);
   let scale = useRef(new Animated.Value(1)).current;
+  const {
+    action: { cancelSelection, checkInFigure, selectFigure }
+  } = CONFIG;
 
   useEffect(() => {
-    if (action === State.ACTIVE) {
+    if (action === selectFigure) {
       onBlur(true);
       Animated.timing(scale, {
         toValue: 2,
         duration: 800,
         useNativeDriver: true
       }).start();
-    } else if (action === State.END) {
+    } else if (action === cancelSelection) {
       onBlur(false);
       Animated.spring(scale, {
         toValue: 1,
         useNativeDriver: true
       }).start();
       setAction(null);
+    } else if (action === checkInFigure) {
+      Animated.spring(scale, {
+        toValue: 0,
+        useNativeDriver: true
+      }).start();
+      onBlur(false);
     }
   }, [action]);
 
@@ -50,12 +60,15 @@ const Figure = ({
   const h = (w - 8) * 1.1;
   const onMoveStateChange = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
-      setAction(State.ACTIVE);
+      setAction(selectFigure);
     }
   };
   const handleAction = (action) => {
     if (action === TEXT.close) {
-      setAction(State.END);
+      setAction(cancelSelection);
+    } else if (action === TEXT.check) {
+      setAction(checkInFigure);
+      onCheckFigure(id);
     }
   };
 
@@ -69,7 +82,7 @@ const Figure = ({
       >
         <Animated.View
           style={[
-            action === State.ACTIVE ? styles.absolute(w) : styles.relative,
+            action === selectFigure ? styles.absolute(w) : styles.relative,
             { transform: [{ scale }] }
           ]}
         >
@@ -90,7 +103,7 @@ const Figure = ({
         </Animated.View>
       </LongPressGestureHandler>
 
-      {action === State.ACTIVE && (
+      {action === selectFigure && (
         <ActionsContainer width={w} height={h} screenWidth={Dimensions.get('window').width}>
           <AntDesign.Button
             onPress={() => handleAction(TEXT.check)}

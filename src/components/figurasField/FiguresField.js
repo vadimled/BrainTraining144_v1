@@ -4,20 +4,21 @@
  * created on 16/07/2020
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Figure from '../figure';
 import { BlurView } from 'expo-blur';
 import { connect } from 'react-redux';
-import { getCurrentGameType, getFiguresByCurrentType } from '../../store/selectors';
+import { getFiguresByCurrentType } from '../../store/selectors';
 import {
   FiguresFieldContainer,
   FiguresScrollContainer,
   GameContainer,
   GuessContainer
 } from './FiguresField.styled';
+import { checkinSelectedFigure } from '../../store/actions/gameActions';
 
-const FiguresField = ({ list, gameType }) => {
+const FiguresField = ({ list, checkFigure }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
   const scrollRef = useRef();
 
@@ -30,17 +31,10 @@ const FiguresField = ({ list, gameType }) => {
   };
   const renderFigures = () => {
     return list.map((item, index) => {
-      return <Figure key={index} config={item} onBlur={handleBlur} />;
+      return <Figure key={index} config={item} onBlur={handleBlur} onCheckFigure={checkFigure} />;
     });
   };
 
-  useEffect(() => {
-    console.log('----- useEffect!');
-    renderFigures();
-    return () => console.log('----- unmounted!');
-  }, [gameType]);
-
-  console.log(1, list.length, gameType);
   return (
     <FiguresFieldContainer style={styles.container}>
       <GuessContainer />
@@ -70,8 +64,13 @@ const styles = StyleSheet.create({
 
 const mapStateFromProps = (state) => {
   return {
-    list: getFiguresByCurrentType(state),
-    gameType: getCurrentGameType(state)
+    list: getFiguresByCurrentType(state)
   };
 };
-export default connect(mapStateFromProps)(FiguresField);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    checkFigure: (id) => dispatch(checkinSelectedFigure(id))
+  };
+};
+export default connect(mapStateFromProps, mapDispatchToProps)(FiguresField);

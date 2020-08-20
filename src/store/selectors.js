@@ -1,13 +1,20 @@
 import { createSelector } from 'reselect';
-import { config } from '../utils/constants';
+import { CONFIG } from '../utils/constants';
 
 export const getListItems = (state) => state.game.full144List,
   getCurrentGameType = (state) => state.game.currentGameType,
-  getFiguresByCurrentType = createSelector(getListItems, getCurrentGameType, (arr, type) => {
-    const length = config.type[type]?.gameField;
+  getSelectedFitures = (state) => state.game.currShapesId,
+  getFiguresByCurrentType = createSelector(
+    getListItems,
+    getCurrentGameType,
+    getSelectedFitures,
+    (arr, type, selected) => {
+    const length = CONFIG.type[type]?.gameField;
     let newArr = [];
     for (let i = 0; i < length; i++) {
-      newArr.push(arr[i]);
+      if(!selected.includes(arr[i].id)) {
+        newArr.push(arr[i]);
+      }
     }
     return newArr;
   });

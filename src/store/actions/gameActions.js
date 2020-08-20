@@ -14,3 +14,10 @@ export function setCurrentGameType(type) {
   }
 }
 
+export function checkinSelectedFigure(id) {
+  return {
+    type: types.CHECKIN_SELECTED_FIGURE,
+    payload: id
+  }
+}
+

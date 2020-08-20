@@ -36,7 +36,7 @@ export const TEXT = {
   close: 'close'
 };
 
-export const config = {
+export const CONFIG = {
   type: {
     easy: {
       gameField: 42,
@@ -50,6 +50,11 @@ export const config = {
       gameField: 144,
       guessField: 12
     }
+  },
+  action:{
+    selectFigure: 1,
+    cancelSelection: 2,
+    checkInFigure: 3
   }
 };
 
