@@ -1,10 +1,3 @@
-export const DB_FETCH = 'DB_FETCH';
-export const DB_FETCH_SUCCESS = 'DB_FETCH_SUCCESS';
-export const DB_FETCH_FAILED = 'DB_FETCH_FAILED';
-
-export const SET_NAME_REGISTER = 'SET_NAME_REGISTER';
-export const SET_NAME_LOGIN = 'SET_NAME_LOGIN';
-
 export const COLORS = {
   tableFont: '#c1c1c1',
   tableFont100: '#E5E5E5',
@@ -31,11 +24,16 @@ export const NUMBERS = {
   prefixIconSize: 24
 };
 
-export const config = {
+export const TEXT = {
+  check: 'check',
+  close: 'close'
+};
+
+export const CONFIG = {
   type: {
     easy: {
       gameField: 42,
-      guessField: 4,
+      guessField: 4
     },
     medium: {
       gameField: 70,
@@ -45,6 +43,11 @@ export const config = {
       gameField: 144,
       guessField: 12
     }
+  },
+  action:{
+    selectFigure: 1,
+    cancelSelection: 2,
+    checkInFigure: 3
   }
 };
 
@@ -53,4 +56,4 @@ export const basicColors = [COLORS.shape1, COLORS.shape2, COLORS.shape3, COLORS.
 export const size = {
   big: { width: 40, height: 40 },
   small: { width: 22, height: 22 }
-}
+};

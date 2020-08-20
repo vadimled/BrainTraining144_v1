@@ -21,7 +21,14 @@ const gameReducer = createReducer(initialState, {
       currentGameType: payload
     }
   },
-  
+  [types.CHECKIN_SELECTED_FIGURE ]: (state, {payload}) => {
+    const arr = state.currShapesId.slice();
+    arr.push(payload)
+    return {
+      ...state,
+      currShapesId: arr
+    }
+  },
   
 });
 

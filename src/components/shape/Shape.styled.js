@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { COLORS } from '../../utils/constants';
 
 export const ShapeContainer = styled.View`
   background-color: transparent;
