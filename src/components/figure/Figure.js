@@ -54,8 +54,9 @@ const Figure = ({
       }).start();
       setAction(null);
     } else if (action === checkInFigure) {
-      Animated.spring(scale, {
+      Animated.timing(scale, {
         toValue: 0,
+        duration: 500,
         useNativeDriver: true
       }).start(() => onCheckFigure(id));
       onBlur(false);
