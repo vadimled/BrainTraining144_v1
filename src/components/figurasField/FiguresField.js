@@ -17,6 +17,7 @@ import {
   GuessContainer
 } from './FiguresField.styled';
 import { checkinSelectedFigure } from '../../store/actions/gameActions';
+import GuessBoard from "../guessBoard"
 
 const FiguresField = ({ list, checkFigure }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
@@ -37,7 +38,7 @@ const FiguresField = ({ list, checkFigure }) => {
 
   return (
     <FiguresFieldContainer style={styles.container}>
-      <GuessContainer />
+      <GuessBoard />
       <GameContainer>
         <FiguresScrollContainer ref={scrollRef}>
           {renderFigures()}
