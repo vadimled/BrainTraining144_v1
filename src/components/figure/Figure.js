@@ -21,6 +21,8 @@ import { AntDesign } from '@expo/vector-icons';
 const Figure = ({
   onBlur,
   onCheckFigure,
+  width,
+  height,
   config: { id, shapeBig, colorBig, shapeSmall, colorSmall }
 }) => {
   const [action, setAction] = useState(0);
@@ -64,10 +66,6 @@ const Figure = ({
   }, [action]);
 
   const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
-
-  const screenWidth = Math.round(Dimensions.get('window').width);
-  const w = screenWidth / 6 - 8;
-  const h = (w - 8) * 1.1;
   const onMoveStateChange = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
       setAction(selectFigure);
@@ -91,15 +89,15 @@ const Figure = ({
       >
         <Animated.View
           style={[
-            action === selectFigure ? styles.absolute(w) : styles.relative,
+            action === selectFigure ? styles.absolute(width) : styles.relative,
             { transform: [{ scale }, { scale: scaleStart }] }
           ]}
         >
           <FigureTouchableContainer useForeground>
             <FigureContainerBgn
               source={require('../../../assets/figura_base.png')}
-              width={w}
-              height={h}
+              width={width}
+              height={height}
             >
               <FigureContainer>
                 <Shape size={size.big} shape={shapeBig} color={colorBig} />
@@ -113,7 +111,11 @@ const Figure = ({
       </LongPressGestureHandler>
 
       {action === selectFigure && (
-        <ActionsContainer width={w} height={h} screenWidth={Dimensions.get('window').width}>
+        <ActionsContainer
+          width={width}
+          height={height}
+          screenWidth={Dimensions.get('window').width}
+        >
           <AntDesign.Button
             onPress={() => handleAction(TEXT.check)}
             name="check"

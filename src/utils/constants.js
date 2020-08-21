@@ -1,3 +1,5 @@
+import {Dimensions} from "react-native"
+
 export const COLORS = {
   tableFont: '#c1c1c1',
   tableFont100: '#E5E5E5',
@@ -57,3 +59,5 @@ export const size = {
   big: { width: 40, height: 40 },
   small: { width: 22, height: 22 }
 };
+
+export const screenWidth = Math.round(Dimensions.get('window').width);

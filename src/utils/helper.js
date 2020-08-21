@@ -1,5 +1,5 @@
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-import { basicColors, basicShapes, COLORS, NUMBERS } from './constants';
+import {basicColors, basicShapes, COLORS, CONFIG, NUMBERS} from './constants';
 import React from 'react';
 
 export const getIconByName = (name) => {
@@ -69,3 +69,6 @@ export const getListOf144Shapes = () => {
     .sort((a, b) => a[0] - b[0])
     .map((a) => a[1]);
 };
+
+export const getSelectedFiguresAmount = type => CONFIG.type[type]?.guessField;
+
