@@ -25,9 +25,18 @@ const Figure = ({
 }) => {
   const [action, setAction] = useState(0);
   let scale = useRef(new Animated.Value(1)).current;
+  let scaleStart = useRef(new Animated.Value(0)).current;
   const {
     action: { cancelSelection, checkInFigure, selectFigure }
   } = CONFIG;
+
+  useEffect(() => {
+    Animated.timing(scaleStart, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true
+    }).start();
+  }, []);
 
   useEffect(() => {
     if (action === selectFigure) {
@@ -48,7 +57,7 @@ const Figure = ({
       Animated.spring(scale, {
         toValue: 0,
         useNativeDriver: true
-      }).start();
+      }).start(() => onCheckFigure(id));
       onBlur(false);
     }
   }, [action]);
@@ -68,7 +77,6 @@ const Figure = ({
       setAction(cancelSelection);
     } else if (action === TEXT.check) {
       setAction(checkInFigure);
-      onCheckFigure(id);
     }
   };
 
@@ -83,7 +91,7 @@ const Figure = ({
         <Animated.View
           style={[
             action === selectFigure ? styles.absolute(w) : styles.relative,
-            { transform: [{ scale }] }
+            { transform: [{ scale }, { scale: scaleStart }] }
           ]}
         >
           <FigureTouchableContainer useForeground>

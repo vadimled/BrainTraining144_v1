@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { GuessBoardContainer} from './GuessBoard.styled';
+import { GuessBoardContainer } from './GuessBoard.styled';
 
 const GuessBoard = ({ children }) => {
   return (
