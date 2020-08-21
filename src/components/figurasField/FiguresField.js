@@ -18,8 +18,8 @@ import {
 } from './FiguresField.styled';
 import { checkinSelectedFigure } from '../../store/actions/gameActions';
 import GuessBoard from "../guessBoard"
-import SelectedFigures from "../selectedFigures"
-import InformArea from "../informArea"
+import SelectedFigures from "../guessBoard/components/selectedFigures"
+import InformArea from "../guessBoard/components/informArea"
 
 const FiguresField = ({ list, checkFigure }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
