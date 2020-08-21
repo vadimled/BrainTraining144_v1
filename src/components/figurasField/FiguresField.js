@@ -9,19 +9,18 @@ import { StyleSheet } from 'react-native';
 import Figure from '../figure';
 import { BlurView } from 'expo-blur';
 import { connect } from 'react-redux';
-import { getFiguresByCurrentType } from '../../store/selectors';
+import {getFiguresByCurrentType, getSelectedFigures} from '../../store/selectors';
 import {
   FiguresFieldContainer,
   FiguresScrollContainer,
-  GameContainer,
-  GuessContainer
+  GameContainer
 } from './FiguresField.styled';
 import { checkinSelectedFigure } from '../../store/actions/gameActions';
 import GuessBoard from "../guessBoard"
 import SelectedFigures from "../guessBoard/components/selectedFigures"
 import InformArea from "../guessBoard/components/informArea"
 
-const FiguresField = ({ list, checkFigure }) => {
+const FiguresField = ({ list, selectedFiguresList, checkFigure }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
   const scrollRef = useRef();
 
@@ -42,7 +41,7 @@ const FiguresField = ({ list, checkFigure }) => {
     <FiguresFieldContainer style={styles.container}>
       <GuessBoard>
         <InformArea />
-        <SelectedFigures />
+        <SelectedFigures list={selectedFiguresList}/>
       </GuessBoard>
       <GameContainer>
         <FiguresScrollContainer ref={scrollRef}>
@@ -70,7 +69,8 @@ const styles = StyleSheet.create({
 
 const mapStateFromProps = (state) => {
   return {
-    list: getFiguresByCurrentType(state)
+    list: getFiguresByCurrentType(state),
+    selectedFiguresList: getSelectedFigures(state),
   };
 };
 
