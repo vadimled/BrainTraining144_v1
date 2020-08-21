@@ -5,18 +5,14 @@
  */
 
 import React from 'react';
-import {GuessBoardContainer, Background} from './GuessBoard.styled';
+import { GuessBoardContainer} from './GuessBoard.styled';
 
-const GuessBoard = () => {
+const GuessBoard = ({ children }) => {
   return (
-    <GuessBoardContainer>
-      <Background
-        source={require('../../../assets/hangdesck.png')}
-        resizeMode={"stretch"}
-      />
+    <GuessBoardContainer source={require('../../../assets/hangdesck.png')} resizeMode={'stretch'}>
+      {children}
     </GuessBoardContainer>
   );
 };
 
 export default GuessBoard;
-
