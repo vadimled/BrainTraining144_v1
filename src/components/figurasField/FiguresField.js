@@ -12,7 +12,8 @@ import { connect } from 'react-redux';
 import {
   getCurrentGameType,
   getFiguresByCurrentType,
-  getSelectedFigures, getSelectedFiguresAmount
+  getSelectedFigures,
+  getSelectedFiguresAmount
 } from '../../store/selectors';
 import {
   FiguresFieldContainer,
@@ -23,16 +24,22 @@ import { checkinSelectedFigure } from '../../store/actions/gameActions';
 import GuessBoard from '../guessBoard';
 import SelectedFigures from '../guessBoard/components/selectedFigures';
 import InformArea from '../guessBoard/components/informArea';
-import {NUMBERS, screenWidth} from '../../utils/constants';
+import { NUMBERS, screenWidth } from '../../utils/constants';
 // import { getSelectedFiguresAmount } from '../../utils/helper';
 
-const FiguresField = ({ list, selectedFiguresList, checkFigure, currFiguresAmount, currentGameType }) => {
+const FiguresField = ({
+  list,
+  selectedFiguresList,
+  checkFigure,
+  currFiguresAmount,
+  currentGameType
+}) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
-  const [selectedFiguresAmount] = useState(currFiguresAmount);
+  // const [selectedFiguresAmount] = useState(currFiguresAmount);
   const scrollRef = useRef();
   // const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
   const w = screenWidth / 6 - 5;
-  const h = (w-5) * 1.1;
+  const h = (w - 5) * 1.1;
 
   const handleBlur = () => {
     setOverlayFlag(!overlayFlag);
@@ -51,17 +58,23 @@ const FiguresField = ({ list, selectedFiguresList, checkFigure, currFiguresAmoun
           onCheckFigure={checkFigure}
           width={w}
           height={h}
-          margin={NUMBERS.marginGameField}
+          mH={NUMBERS.mGameH}
+          mV={NUMBERS.mGameV}
         />
       );
     });
   };
-
+  console.log(currFiguresAmount);
   return (
     <FiguresFieldContainer>
       <GuessBoard>
         <InformArea />
-        <SelectedFigures list={selectedFiguresList} amount={selectedFiguresAmount} margin={NUMBERS.marginGuessBoard}/>
+        <SelectedFigures
+          list={selectedFiguresList}
+          amount={currFiguresAmount}
+          mH={NUMBERS.mGuessH}
+          mV={NUMBERS.mGuessV}
+        />
       </GuessBoard>
       <GameContainer>
         <FiguresScrollContainer ref={scrollRef}>

@@ -23,7 +23,8 @@ const Figure = ({
   onCheckFigure,
   width,
   height,
-  margin,
+  mH,
+  mV,
   config: { id, shapeBig, colorBig, shapeSmall, colorSmall }
 }) => {
   const [action, setAction] = useState(0);
@@ -94,7 +95,7 @@ const Figure = ({
             { transform: [{ scale }, { scale: scaleStart }] }
           ]}
         >
-          <FigureTouchableContainer useForeground margin={margin}>
+          <FigureTouchableContainer useForeground mH={mH} mV={mV}>
             <FigureContainerBgn
               source={require('../../../assets/figura_base.png')}
               width={width}

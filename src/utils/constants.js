@@ -1,4 +1,4 @@
-import {Dimensions} from "react-native"
+import { Dimensions } from 'react-native';
 
 export const COLORS = {
   tableFont: '#c1c1c1',
@@ -24,8 +24,10 @@ export const COLORS = {
 };
 export const NUMBERS = {
   prefixIconSize: 24,
-  marginGameField: 5,
-  marginGuessBoard: 10,
+  mGameH: 8,
+  mGuessH: 10,
+  mGameV: 5,
+  mGuessV: 0
 };
 
 export const TEXT = {
@@ -48,7 +50,7 @@ export const CONFIG = {
       guessField: 12
     }
   },
-  action:{
+  action: {
     selectFigure: 1,
     cancelSelection: 2,
     checkInFigure: 3

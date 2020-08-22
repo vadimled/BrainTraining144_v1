@@ -9,17 +9,19 @@ import {SelectedFiguresContainer, ViewTemp} from './SelectedFigures.styled';
 import Figure from '../../../figure';
 import {NUMBERS, screenWidth} from '../../../../utils/constants';
 
-const SelectedFigures = ({ list, amount, margin }) => {
-  const w = ((screenWidth-(screenWidth*8/100)) / 4)-(NUMBERS.marginGuessBoard*2);
+const SelectedFigures = ({ list, amount, mH, mV }) => {
+  const columnNumber = amount <= 8 ? 4 : 5;
+  const w = ((screenWidth-(screenWidth*8/100)) / columnNumber)-(NUMBERS.mGuessH*2); //3.8
   const h = w * 1.1;
   
   console.log("Width=",w)
+  console.log("ColumnNumber=",columnNumber)
   
   const renderFigures = () => {
     return (
       <ViewTemp>
         {list.map((item, index) => {
-          return <Figure key={index} config={item} width={w} height={h} margin={margin}/>;
+          return <Figure key={index} config={item} width={w} height={h} mH={mH} mV={mV}/>;//1.8
         })        }
       </ViewTemp>
   )};
