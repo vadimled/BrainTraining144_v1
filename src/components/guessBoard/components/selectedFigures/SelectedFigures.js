@@ -5,19 +5,24 @@
  */
 
 import React from 'react';
-import { SelectedFiguresContainer } from './SelectedFigures.styled';
+import {SelectedFiguresContainer, ViewTemp} from './SelectedFigures.styled';
 import Figure from '../../../figure';
 import { screenWidth } from '../../../../utils/constants';
 
 const SelectedFigures = ({ list, amount }) => {
-  const w = ((screenWidth-(screenWidth/20)) / amount);
+  const w = ((screenWidth-(screenWidth*8/100)) / amount)-21;
   const h = w * 1.1;
-
+  
+  console.log("Width=",w)
+  
   const renderFigures = () => {
-    return list.map((item, index) => {
-      return <Figure key={index} config={item} width={w} height={h} />;
-    });
-  };
+    return (
+      <ViewTemp>
+        {list.map((item, index) => {
+          return <Figure key={index} config={item} width={w} height={h}/>;
+        })        }
+      </ViewTemp>
+  )};
 
   return <SelectedFiguresContainer>{renderFigures()}</SelectedFiguresContainer>;
 };

@@ -7,8 +7,3 @@ export const GuessBoardContainer = styled.ImageBackground`
     justify-content: center;
     align-items: center;
 `;
-export const Background = styled.Image`
-    width: 100%;
-    height: 100%;
-`;
-

@@ -56,7 +56,7 @@ const FiguresField = ({ list, selectedFiguresList, checkFigure, currentGameType 
   };
 
   return (
-    <FiguresFieldContainer style={styles.container}>
+    <FiguresFieldContainer>
       <GuessBoard>
         <InformArea />
         <SelectedFigures list={selectedFiguresList} amount={selectedFiguresAmount} />
