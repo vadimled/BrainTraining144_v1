@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import {
   getCurrentGameType,
   getFiguresByCurrentType,
-  getSelectedFigures
+  getSelectedFigures, getSelectedFiguresAmount
 } from '../../store/selectors';
 import {
   FiguresFieldContainer,
@@ -23,15 +23,16 @@ import { checkinSelectedFigure } from '../../store/actions/gameActions';
 import GuessBoard from '../guessBoard';
 import SelectedFigures from '../guessBoard/components/selectedFigures';
 import InformArea from '../guessBoard/components/informArea';
-import { screenWidth } from '../../utils/constants';
-import { getSelectedFiguresAmount } from '../../utils/helper';
+import {NUMBERS, screenWidth} from '../../utils/constants';
+// import { getSelectedFiguresAmount } from '../../utils/helper';
 
-const FiguresField = ({ list, selectedFiguresList, checkFigure, currentGameType }) => {
+const FiguresField = ({ list, selectedFiguresList, checkFigure, currFiguresAmount, currentGameType }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
+  const [selectedFiguresAmount] = useState(currFiguresAmount);
   const scrollRef = useRef();
-  const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
-  const w = screenWidth / 6 - 8;
-  const h = (w - 8) * 1.1;
+  // const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
+  const w = screenWidth / 6 - 5;
+  const h = (w-5) * 1.1;
 
   const handleBlur = () => {
     setOverlayFlag(!overlayFlag);
@@ -50,6 +51,7 @@ const FiguresField = ({ list, selectedFiguresList, checkFigure, currentGameType 
           onCheckFigure={checkFigure}
           width={w}
           height={h}
+          margin={NUMBERS.marginGameField}
         />
       );
     });
@@ -59,7 +61,7 @@ const FiguresField = ({ list, selectedFiguresList, checkFigure, currentGameType 
     <FiguresFieldContainer>
       <GuessBoard>
         <InformArea />
-        <SelectedFigures list={selectedFiguresList} amount={selectedFiguresAmount} />
+        <SelectedFigures list={selectedFiguresList} amount={selectedFiguresAmount} margin={NUMBERS.marginGuessBoard}/>
       </GuessBoard>
       <GameContainer>
         <FiguresScrollContainer ref={scrollRef}>
@@ -89,6 +91,7 @@ const mapStateFromProps = (state) => {
   return {
     list: getFiguresByCurrentType(state),
     selectedFiguresList: getSelectedFigures(state),
+    currFiguresAmount: getSelectedFiguresAmount(state),
     currentGameType: getCurrentGameType(state)
   };
 };

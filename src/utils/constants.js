@@ -23,7 +23,9 @@ export const COLORS = {
   shape4: '#007813'
 };
 export const NUMBERS = {
-  prefixIconSize: 24
+  prefixIconSize: 24,
+  marginGameField: 5,
+  marginGuessBoard: 10,
 };
 
 export const TEXT = {

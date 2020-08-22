@@ -4,6 +4,7 @@ import { CONFIG } from '../utils/constants';
 export const getListItems = (state) => state.game.full144List,
   getCurrentGameType = (state) => state.game.currentGameType,
   getSelectedFigures = (state) => state.game.currShapesId,
+  getSelectedFiguresAmount = (state) => state.game.currShapesId.length,
   getFiguresByCurrentType = createSelector(
     getListItems,
     getCurrentGameType,

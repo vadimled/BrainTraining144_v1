@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const FigureTouchableContainer = styled.TouchableOpacity`
-  margin: 10px;
+  margin: ${props => `5px ${props.margin}px`};
 `;
 export const FigureContainerBgn = styled.ImageBackground`
   width: ${(props) => `${props.width}px`};
