@@ -4,7 +4,7 @@
  * created on 16/07/2020
  */
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import Figure from '../figure';
 import { BlurView } from 'expo-blur';
@@ -25,6 +25,7 @@ import GuessBoard from '../guessBoard';
 import SelectedFigures from '../guessBoard/components/selectedFigures';
 import InformArea from '../guessBoard/components/informArea';
 import { NUMBERS, screenWidth } from '../../utils/constants';
+import {isFigureChoiceDisabled} from "../../utils/helper"
 // import { getSelectedFiguresAmount } from '../../utils/helper';
 
 const FiguresField = ({
@@ -35,9 +36,17 @@ const FiguresField = ({
   currentGameType
 }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
+  const [isDisabled, setFigureChoiceStatus] = useState(false);
   // const [selectedFiguresAmount] = useState(currFiguresAmount);
   const scrollRef = useRef();
   // const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
+  
+  useEffect(() => {
+    console.log("Amount=",currFiguresAmount)
+    setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount))
+  }, [currFiguresAmount]);
+  
+  
   const w = screenWidth / 6 - 5;
   const h = (w - 5) * 1.1;
 
@@ -60,11 +69,12 @@ const FiguresField = ({
           height={h}
           mH={NUMBERS.mGameH}
           mV={NUMBERS.mGameV}
+          disabled={isDisabled}
         />
       );
     });
   };
-  console.log(currFiguresAmount);
+
   return (
     <FiguresFieldContainer>
       <GuessBoard>
@@ -72,8 +82,10 @@ const FiguresField = ({
         <SelectedFigures
           list={selectedFiguresList}
           amount={currFiguresAmount}
+          onCheckFigure={checkFigure}
           mH={NUMBERS.mGuessH}
           mV={NUMBERS.mGuessV}
+          disabled={isDisabled}
         />
       </GuessBoard>
       <GameContainer>

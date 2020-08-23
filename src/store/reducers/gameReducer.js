@@ -22,10 +22,19 @@ const gameReducer = createReducer(initialState, {
     }
   },
   [types.CHECKIN_SELECTED_FIGURE ]: (state, {payload}) => {
-    const arr = state.currShapesId.slice();
-    const fg = state.full144List.find(s => s.id === payload)
-    arr.push(fg)
-    return {
+    let arr = [...state.currShapesId];
+    if(state.currShapesId?.some(s => console.log({s, payload}) || s.id === payload)){
+       arr = state.currShapesId.map(s => {
+        if(s.id !== payload){
+          return s;
+        }
+      })
+    }
+    else {
+      const fg = state.full144List.find(s => s.id === payload)
+      arr.push(fg)
+    }
+     return {
       ...state,
       currShapesId: arr
     }

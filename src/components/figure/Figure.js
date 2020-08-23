@@ -25,13 +25,14 @@ const Figure = ({
   height,
   mH,
   mV,
+  disabled,
   config: { id, shapeBig, colorBig, shapeSmall, colorSmall }
 }) => {
   const [action, setAction] = useState(0);
   let scale = useRef(new Animated.Value(1)).current;
   let scaleStart = useRef(new Animated.Value(0)).current;
   const {
-    action: { cancelSelection, checkInFigure, selectFigure }
+    action: { cancelSelection, checkInFigure, selectFigure, stopSelection }
   } = CONFIG;
 
   useEffect(() => {
@@ -64,13 +65,21 @@ const Figure = ({
         useNativeDriver: true
       }).start(() => onCheckFigure(id));
       onBlur(false);
+    } else if (action === stopSelection) {
+      Animated.timing(scale, null).stop();
+      onBlur(false);
     }
   }, [action]);
 
   const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   const onMoveStateChange = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
-      setAction(selectFigure);
+      console.log('----- disabled=', disabled);
+      if (!disabled) {
+        setAction(selectFigure);
+      } else {
+        setAction(stopSelection);
+      }
     }
   };
   const handleAction = (action) => {

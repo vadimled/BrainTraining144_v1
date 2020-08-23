@@ -1,5 +1,5 @@
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-import {basicColors, basicShapes, COLORS, CONFIG, NUMBERS} from './constants';
+import {basicColors, basicShapes, COLORS, CONFIG, GAMETYPE, NUMBERS} from './constants';
 import React from 'react';
 
 export const getIconByName = (name) => {
@@ -72,3 +72,10 @@ export const getListOf144Shapes = () => {
 
 export const getSelectedFiguresAmount = type => CONFIG.type[type]?.guessField;
 
+export const isFigureChoiceDisabled = (currentGameType, currFiguresAmount) => {
+  switch (currentGameType) {
+    case GAMETYPE.easy : return currFiguresAmount > 3
+    case GAMETYPE.medium : return currFiguresAmount > 7
+    case GAMETYPE.hard : return currFiguresAmount > 11
+  }
+}

@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import {setCurrentGameType} from "../store/actions/gameActions"
 
 export const COLORS = {
   tableFont: '#c1c1c1',
@@ -35,6 +36,12 @@ export const TEXT = {
   close: 'close'
 };
 
+export const GAMETYPE = {
+  easy: "easy",
+  medium: "medium",
+  hard: "hard"
+}
+
 export const CONFIG = {
   type: {
     easy: {
@@ -53,7 +60,8 @@ export const CONFIG = {
   action: {
     selectFigure: 1,
     cancelSelection: 2,
-    checkInFigure: 3
+    checkInFigure: 3,
+    stopSelection: 4
   }
 };
 
