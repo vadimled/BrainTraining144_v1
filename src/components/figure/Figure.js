@@ -74,7 +74,6 @@ const Figure = ({
   const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   const onMoveStateChange = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
-      console.log('----- disabled=', disabled);
       if (!disabled) {
         setAction(selectFigure);
       } else {
