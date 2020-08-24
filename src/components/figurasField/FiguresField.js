@@ -6,7 +6,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import Figure from '../figure';
+import Figure from './components/figure';
 import { BlurView } from 'expo-blur';
 import { connect } from 'react-redux';
 import {
@@ -21,9 +21,9 @@ import {
   GameContainer
 } from './FiguresField.styled';
 import { checkinSelectedFigure } from '../../store/actions/gameActions';
-import GuessBoard from '../guessBoard';
-import SelectedFigures from '../guessBoard/components/selectedFigures';
-import InformArea from '../guessBoard/components/informArea';
+import GuessBoard from './components/guessBoard';
+import SelectedFigures from './components/guessBoard/components/selectedFigures';
+import InformArea from './components/guessBoard/components/informArea';
 import { NUMBERS, screenWidth } from '../../utils/constants';
 import {isFigureChoiceDisabled} from "../../utils/helper"
 // import { getSelectedFiguresAmount } from '../../utils/helper';

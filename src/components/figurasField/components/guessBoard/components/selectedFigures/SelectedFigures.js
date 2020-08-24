@@ -7,7 +7,7 @@
 import React from 'react';
 import { SelectedFiguresContainer, ViewTemp } from './SelectedFigures.styled';
 import Figure from '../../../figure';
-import { NUMBERS, screenWidth } from '../../../../utils/constants';
+import { NUMBERS, screenWidth } from '../../../../../../utils/constants';
 
 const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
   const columnNumber = amount <= 8 ? 4 : 5;

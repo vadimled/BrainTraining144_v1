@@ -9,7 +9,7 @@ import { GuessBoardContainer } from './GuessBoard.styled';
 
 const GuessBoard = ({ children }) => {
   return (
-    <GuessBoardContainer source={require('../../../assets/hangdesck.png')} resizeMode={'stretch'}>
+    <GuessBoardContainer source={require('../../../../../assets/hangdesck.png')} resizeMode={'stretch'}>
       {children}
     </GuessBoardContainer>
   );

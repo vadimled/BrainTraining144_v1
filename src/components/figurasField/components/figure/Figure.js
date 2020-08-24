@@ -15,7 +15,7 @@ import {
 import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import Shape from '../shape';
-import { COLORS, size, TEXT, CONFIG } from '../../utils/constants';
+import { COLORS, size, TEXT, CONFIG } from '../../../../utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 
 const Figure = ({
@@ -105,7 +105,7 @@ const Figure = ({
         >
           <FigureTouchableContainer useForeground mH={mH} mV={mV}>
             <FigureContainerBgn
-              source={require('../../../assets/figura_base.png')}
+              source={require('../../../../../assets/figura_base.png')}
               width={width}
               height={height}
             >
