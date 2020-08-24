@@ -6,7 +6,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import Figure from './components/figure';
+import Figure from './components/components-Figure/figure';
 import { BlurView } from 'expo-blur';
 import { connect } from 'react-redux';
 import {

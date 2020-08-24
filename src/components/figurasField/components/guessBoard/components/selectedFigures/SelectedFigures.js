@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { SelectedFiguresContainer, ViewTemp } from './SelectedFigures.styled';
-import Figure from '../../../figure';
+import Figure from '../../../components-Figure/figure';
 import { NUMBERS, screenWidth } from '../../../../../../utils/constants';
 
 const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
