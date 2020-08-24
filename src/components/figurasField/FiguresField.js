@@ -26,6 +26,7 @@ import SelectedFigures from './components/guessBoard/components/selectedFigures'
 import InformArea from './components/guessBoard/components/informArea';
 import { NUMBERS, screenWidth } from '../../utils/constants';
 import {isFigureChoiceDisabled} from "../../utils/helper"
+import FigureActiveLayout from "./components/figureActiveLayout"
 // import { getSelectedFiguresAmount } from '../../utils/helper';
 
 const FiguresField = ({
@@ -60,7 +61,7 @@ const FiguresField = ({
   const renderFigures = () => {
     return list.map((item, index) => {
       return (
-        <Figure
+        <FigureActiveLayout
           key={index}
           config={item}
           onBlur={handleBlur}

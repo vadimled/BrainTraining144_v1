@@ -30,10 +30,10 @@ const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
               mH={mH}
               mV={mV}
               onCheckFigure={onCheckFigure}
-              onBlur={()=>{}}
+              onBlur={() => {}}
               disabled={disabled}
             />
-          ); //1.8
+          );
         })}
       </ViewTemp>
     );
