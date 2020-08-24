@@ -5,14 +5,14 @@
  */
 
 import React, { useRef, useEffect, useState } from 'react';
-import { ActionsContainer } from './FigureActiveLayout.styled';
+import { ActionsContainer } from './FigureActive.styled';
 import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import { COLORS, TEXT, CONFIG } from '../../../../utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 import Figure from '../components-Figure/figure';
 
-const FigureActiveLayout = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, config }) => {
+const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, config }) => {
   const [action, setAction] = useState(0);
   let scale = useRef(new Animated.Value(1)).current;
   const {
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FigureActiveLayout;
+export default FigureActive;

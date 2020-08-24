@@ -25,8 +25,8 @@ import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
 import InformArea from './components/guessBoard/components/informArea';
 import { NUMBERS, screenWidth } from '../../utils/constants';
-import {isFigureChoiceDisabled} from "../../utils/helper"
-import FigureActiveLayout from "./components/figureActiveLayout"
+import { isFigureChoiceDisabled } from '../../utils/helper';
+import FigureActive from './components/figureActive';
 // import { getSelectedFiguresAmount } from '../../utils/helper';
 
 const FiguresField = ({
@@ -41,13 +41,12 @@ const FiguresField = ({
   // const [selectedFiguresAmount] = useState(currFiguresAmount);
   const scrollRef = useRef();
   // const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
-  
+
   useEffect(() => {
-    console.log("Amount=",currFiguresAmount)
-    setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount))
+    console.log('Amount=', currFiguresAmount);
+    setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
   }, [currFiguresAmount]);
-  
-  
+
   const w = screenWidth / 6 - 5;
   const h = (w - 5) * 1.1;
 
@@ -60,8 +59,8 @@ const FiguresField = ({
   };
   const renderFigures = () => {
     return list.map((item, index) => {
-      return (
-        <FigureActiveLayout
+      return !isDisabled ? (
+        <FigureActive
           key={index}
           config={item}
           onBlur={handleBlur}
@@ -72,7 +71,7 @@ const FiguresField = ({
           mV={NUMBERS.mGameV}
           disabled={isDisabled}
         />
-      );
+      ) : null;
     });
   };
 

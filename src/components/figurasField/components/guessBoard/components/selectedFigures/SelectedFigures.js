@@ -11,7 +11,7 @@ import { NUMBERS, screenWidth } from '../../../../../../utils/constants';
 
 const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
   const columnNumber = amount <= 8 ? 4 : 5;
-  const w = (screenWidth - (screenWidth * 8) / 100) / columnNumber - NUMBERS.mGuessH * 2; //3.8
+  const w = (screenWidth - (screenWidth * 8) / 100) / columnNumber - NUMBERS.mGuessH * 2;
   const h = w * 1.1;
 
   // console.log("Width=",w)

@@ -1,5 +1,5 @@
 /**
- * FigureActiveLayout
+ * FigureActive
  * @author Vadim Malckin
  * created on 24/08/2020
  */
