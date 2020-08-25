@@ -4,14 +4,14 @@
  * created on 16/07/2020
  */
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import Figure from './components/components-Figure/figure';
 import { BlurView } from 'expo-blur';
 import { connect } from 'react-redux';
 import {
   getCurrentGameType,
   getFiguresByCurrentType,
+  getFiguresInactive,
   getSelectedFigures,
   getSelectedFiguresAmount
 } from '../../store/selectors';
@@ -20,7 +20,7 @@ import {
   FiguresScrollContainer,
   GameContainer
 } from './FiguresField.styled';
-import { checkinSelectedFigure } from '../../store/actions/gameActions';
+import { checkinSelectedFigure, setFiguresInactive } from '../../store/actions/gameActions';
 import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
 import InformArea from './components/guessBoard/components/informArea';
@@ -34,24 +34,35 @@ const FiguresField = ({
   selectedFiguresList,
   checkFigure,
   currFiguresAmount,
-  currentGameType
+  currentGameType,
+  isFiguresInactive
 }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
   const [isDisabled, setFigureChoiceStatus] = useState(false);
   // const [selectedFiguresAmount] = useState(currFiguresAmount);
   const scrollRef = useRef();
   // const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
-
+  // console.log({ list });
   useEffect(() => {
     console.log('Amount=', currFiguresAmount);
     setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
   }, [currFiguresAmount]);
 
+  // useEffect(() => {
+  // setFigureChoiceStatus((flag) => {
+  //   if (flag) {
+  //     setFiguresInactive();
+  //   } else {
+  //     isFigureChoiceDisabled(currentGameType, currFiguresAmount);
+  //   }
+  // });
+  // }, [isDisabled]);
+
   const w = screenWidth / 6 - 5;
   const h = (w - 5) * 1.1;
 
-  const handleBlur = () => {
-    setOverlayFlag(!overlayFlag);
+  const handleBlur = (flag) => {
+    setOverlayFlag(flag);
     scrollRef.current?.scrollTo({
       y: 0,
       animated: true
@@ -59,7 +70,7 @@ const FiguresField = ({
   };
   const renderFigures = () => {
     return list.map((item, index) => {
-      return !isDisabled ? (
+      return (
         <FigureActive
           key={index}
           config={item}
@@ -71,7 +82,7 @@ const FiguresField = ({
           mV={NUMBERS.mGameV}
           disabled={isDisabled}
         />
-      ) : null;
+      );
     });
   };
 
@@ -117,13 +128,15 @@ const mapStateFromProps = (state) => {
     list: getFiguresByCurrentType(state),
     selectedFiguresList: getSelectedFigures(state),
     currFiguresAmount: getSelectedFiguresAmount(state),
-    currentGameType: getCurrentGameType(state)
+    currentGameType: getCurrentGameType(state),
+    isFiguresInactive: getFiguresInactive(state)
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkFigure: (id) => dispatch(checkinSelectedFigure(id))
+    checkFigure: (id) => dispatch(checkinSelectedFigure(id)),
+    setFiguresInactive: () => dispatch(setFiguresInactive())
   };
 };
 export default connect(mapStateFromProps, mapDispatchToProps)(FiguresField);

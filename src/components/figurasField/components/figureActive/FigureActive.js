@@ -18,9 +18,8 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
   const {
     action: { cancelSelection, checkInFigure, selectFigure, stopSelection }
   } = CONFIG;
-
   useEffect(() => {
-    if (action === selectFigure) {
+    if (action === selectFigure && !disabled) {
       onBlur(true);
       Animated.timing(scale, {
         toValue: 2,
@@ -40,9 +39,6 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
         duration: 500,
         useNativeDriver: true
       }).start(() => onCheckFigure(config.id));
-      onBlur(false);
-    } else if (action === stopSelection) {
-      Animated.timing(scale, null).stop();
       onBlur(false);
     }
   }, [action]);
@@ -68,14 +64,14 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
   return (
     <>
       <LongPressGestureHandler
-        onGestureEvent={onGestureEvent}
+        onGestureEvent={!disabled ? onGestureEvent : null}
         onHandlerStateChange={onMoveStateChange}
         minDurationMs={700}
         maxDist={10}
       >
         <Animated.View
           style={[
-            action === selectFigure ? styles.absolute(width) : styles.relative,
+            action === selectFigure && !disabled ? styles.absolute(width) : styles.relative,
             { transform: [{ scale }] }
           ]}
         >
