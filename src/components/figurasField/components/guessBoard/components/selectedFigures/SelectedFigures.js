@@ -4,22 +4,27 @@
  * created on 21/08/2020
  */
 
-import React from 'react';
-import { SelectedFiguresContainer, ViewTemp } from './SelectedFigures.styled';
+import React, { useEffect, useRef } from 'react';
+import {
+  SelectedFiguresContainer,
+  FiguresContainer,
+  SelectingActionsContainer
+} from './SelectedFigures.styled';
 import Figure from '../../../components-Figure/figure';
-import { NUMBERS, screenWidth } from '../../../../../../utils/constants';
+import {NUMBERS, screenWidth, selectedScreenWidth} from '../../../../../../utils/constants';
 
 const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
-  const columnNumber = amount <= 8 ? 4 : 5;
-  const w = (screenWidth - (screenWidth * 8) / 100) / columnNumber - NUMBERS.mGuessH * 2;
-  const h = w * 1.1;
+  const columnNumber = amount <= 6 ? 3 : 4;
 
-  // console.log("Width=",w)
+  const w = (selectedScreenWidth - (selectedScreenWidth * 8) / 100) / columnNumber - NUMBERS.mGuessH * 2,
+  h = w * 1.1;
+
+  console.log(`amount=${amount}; screenWidth = ${selectedScreenWidth}; Width=${w}`);
   // console.log("ColumnNumber=",columnNumber)
 
   const renderFigures = () => {
     return (
-      <ViewTemp>
+      <FiguresContainer>
         {list.map((item, index) => {
           return (
             <Figure
@@ -35,11 +40,16 @@ const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
             />
           );
         })}
-      </ViewTemp>
+      </FiguresContainer>
     );
   };
 
-  return <SelectedFiguresContainer>{renderFigures()}</SelectedFiguresContainer>;
+  return (
+    <SelectedFiguresContainer>
+      {renderFigures()}
+      <SelectingActionsContainer />
+    </SelectedFiguresContainer>
+  );
 };
 
 export default SelectedFigures;

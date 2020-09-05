@@ -44,7 +44,7 @@ const FiguresField = ({
   // const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
   // console.log({ list });
   useEffect(() => {
-    console.log('Amount=', currFiguresAmount);
+    // console.log('Amount=', currFiguresAmount);
     setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
   }, [currFiguresAmount]);
 

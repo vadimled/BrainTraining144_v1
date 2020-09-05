@@ -73,3 +73,4 @@ export const size = {
 };
 
 export const screenWidth = Math.round(Dimensions.get('window').width);
+export const selectedScreenWidth = screenWidth * 0.7;
