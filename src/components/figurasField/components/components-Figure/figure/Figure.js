@@ -4,8 +4,7 @@
  * created on 24/08/2020
  */
 
-import React, { useEffect, useRef } from 'react';
-import { size } from '../../../../../utils/constants';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   FigureContainer,
   FigureContainerBgn,
@@ -14,6 +13,7 @@ import {
 } from './Figure.styled';
 import Shape from '../shape';
 import { Animated } from 'react-native';
+import { SIZE } from '../../../../../utils/constants';
 
 const Figure = ({
   width,
@@ -22,6 +22,9 @@ const Figure = ({
   mV,
   config: { shapeBig, colorBig, shapeSmall, colorSmall }
 }) => {
+  const { small, big } = SIZE;
+  const [smallShapeWidth, setSmallWidth] = useState(width * small.widthIndex);
+  const [bigShapeWidth, setBigWidth] = useState(width * big.widthIndex);
   let scale = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     Animated.timing(scale, {
@@ -30,6 +33,11 @@ const Figure = ({
       useNativeDriver: true
     }).start();
   }, []);
+
+  useEffect(() => {
+    setSmallWidth(width * small.widthIndex);
+    setBigWidth(width * big.widthIndex);
+  }, [width, height]);
 
   return (
     <Animated.View style={[{ transform: [{ scale }] }]}>
@@ -40,10 +48,10 @@ const Figure = ({
           height={height}
         >
           <FigureContainer>
-            <Shape size={size.big} shape={shapeBig} color={colorBig} />
+            <Shape size={bigShapeWidth} shape={shapeBig} color={colorBig} />
           </FigureContainer>
           <SecondShape>
-            <Shape size={size.small} shape={shapeSmall} color={colorSmall} />
+            <Shape size={smallShapeWidth} shape={shapeSmall} color={colorSmall} />
           </SecondShape>
         </FigureContainerBgn>
       </FigureTouchableContainer>

@@ -16,7 +16,6 @@ export const FiguresContainer = styled.View`
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 1px green solid;
 `;
 export const SelectingActionsContainer = styled.View`
   width: 30%;

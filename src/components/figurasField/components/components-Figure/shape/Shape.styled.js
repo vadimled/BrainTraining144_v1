@@ -3,12 +3,13 @@ import styled from 'styled-components/native';
 export const ShapeContainer = styled.View`
   background-color: transparent;
   flex: 1;
-  margin: 3px;
+  justify-content: center;
+  align-items: center;
 `;
 export const SquareShape = styled.View`
   background-color: ${(props) => props.color};
-  width: ${(props) => `${props.width-2}px`};
-  height: ${(props) => `${props.height-2}px`};
+  width: ${(props) => `${props.width - 2}px`};
+  height: ${(props) => `${props.height - 2}px`};
   border: white 1px solid;
 `;
 export const TriangleShape = styled.View`
@@ -28,7 +29,7 @@ export const TriangleInnerShape = styled.View`
   height: 0;
   position: absolute;
   border-style: solid;
-  top: 2px;
+  top: 3px;
   left: ${(props) => `-${(props.width - 4) / 2}px`};
   border-left-width: ${(props) => `${(props.height - 4) / 2}px`};
   border-left-color: transparent;

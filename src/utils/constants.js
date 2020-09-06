@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native';
-import {setCurrentGameType} from "../store/actions/gameActions"
+import { setCurrentGameType } from '../store/actions/gameActions';
 
 export const COLORS = {
   tableFont: '#c1c1c1',
@@ -37,10 +37,10 @@ export const TEXT = {
 };
 
 export const GAMETYPE = {
-  easy: "easy",
-  medium: "medium",
-  hard: "hard"
-}
+  easy: 'easy',
+  medium: 'medium',
+  hard: 'hard'
+};
 
 export const CONFIG = {
   type: {
@@ -67,10 +67,10 @@ export const CONFIG = {
 
 export const basicShapes = ['circle', 'triangle', 'square'];
 export const basicColors = [COLORS.shape1, COLORS.shape2, COLORS.shape3, COLORS.shape4];
-export const size = {
-  big: { width: 40, height: 40 },
-  small: { width: 22, height: 22 }
+export const SIZE = {
+  big: { widthIndex: 0.62, heightIndex: 0.62 },
+  small: { widthIndex: 0.3, heightIndex: 0.3 }
 };
 
 export const screenWidth = Math.round(Dimensions.get('window').width);
-export const selectedScreenWidth = screenWidth * 0.7;
+export const selectedScreenWidth = Math.round(screenWidth * 0.7);

@@ -17,15 +17,15 @@ const Shape = ({ size, shape, color }) => {
   const getShape = () => {
     switch (shape) {
       case 'circle':
-        return <CircleShape width={size.width} height={size.height} color={color} />;
+        return <CircleShape width={size} height={size} color={color} />;
       case 'triangle':
         return (
-          <TriangleShape width={size.width} height={size.height} color={color}>
-            <TriangleInnerShape width={size.width} height={size.height} color={color} />
+          <TriangleShape width={size} height={size} color={color}>
+            <TriangleInnerShape width={size} height={size} color={color} />
           </TriangleShape>
         );
       case 'square':
-        return <SquareShape width={size.width} height={size.height} color={color} />;
+        return <SquareShape width={size} height={size} color={color} />;
     }
   };
 
