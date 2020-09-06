@@ -25,7 +25,7 @@ const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
             return (
               <Figure
                 key={index}
-                config={item}
+                config={item || {}}
                 width={Math.round(w)}
                 height={Math.round(h)}
                 mH={mH}
