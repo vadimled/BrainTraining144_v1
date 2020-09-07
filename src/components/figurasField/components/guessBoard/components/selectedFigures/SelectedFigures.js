@@ -14,9 +14,9 @@ import Figure from '../../../components-Figure/figure';
 import { NUMBERS, selectedScreenWidth } from '../../../../../../utils/constants';
 
 const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
+  
   const columnNumber = amount <= 6 ? 3 : 4,
-    w =
-      (selectedScreenWidth - (selectedScreenWidth * 8) / 100) / columnNumber - NUMBERS.mGuessH * 2,
+    w = (selectedScreenWidth - (selectedScreenWidth * 0.08)) / columnNumber - NUMBERS.mGuessH * 2,
     h = w * 1.1,
     renderFigures = () => {
       return (

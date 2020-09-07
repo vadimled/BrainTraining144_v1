@@ -25,10 +25,10 @@ export const COLORS = {
 };
 export const NUMBERS = {
   prefixIconSize: 24,
-  mGameH: 8,
-  mGuessH: 10,
-  mGameV: 5,
-  mGuessV: 0
+  mGameH: 8, // margin between the figures
+  mGuessH: 10, // margin between the figures
+  mGameV: 5, // margin between the figures
+  mGuessV: 0 // margin between the figures
 };
 
 export const TEXT = {
