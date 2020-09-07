@@ -23,7 +23,7 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
       onBlur(true);
       Animated.timing(scale, {
         toValue: 2,
-        duration: 800,
+        duration: 500,
         useNativeDriver: true
       }).start();
     } else if (action === cancelSelection) {
@@ -36,7 +36,7 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
     } else if (action === checkInFigure) {
       Animated.timing(scale, {
         toValue: 0,
-        duration: 500,
+        duration: 300,
         useNativeDriver: true
       }).start(() => onCheckFigure(config.id));
       onBlur(false);
@@ -66,7 +66,7 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
       <LongPressGestureHandler
         onGestureEvent={!disabled ? onGestureEvent : null}
         onHandlerStateChange={onMoveStateChange}
-        minDurationMs={700}
+        minDurationMs={500}
         maxDist={10}
       >
         <Animated.View

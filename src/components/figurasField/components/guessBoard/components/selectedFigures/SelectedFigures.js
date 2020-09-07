@@ -12,6 +12,7 @@ import {
 } from './SelectedFigures.styled';
 import Figure from '../../../components-Figure/figure';
 import { NUMBERS, selectedScreenWidth } from '../../../../../../utils/constants';
+import SelectingActions from "../selectingActions"
 
 const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
   
@@ -43,7 +44,9 @@ const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
   return (
     <SelectedFiguresContainer>
       {renderFigures()}
-      <SelectingActionsContainer />
+      <SelectingActionsContainer>
+        <SelectingActions />
+      </SelectingActionsContainer>
     </SelectedFiguresContainer>
   );
 };
