@@ -14,7 +14,7 @@ import Figure from '../../../components-Figure/figure';
 import { NUMBERS, selectedScreenWidth } from '../../../../../../utils/constants';
 import SelectingActions from "../selectingActions"
 
-const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
+const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled, isFiguresInactive }) => {
   
   const columnNumber = amount <= 6 ? 3 : 4,
     w = (selectedScreenWidth - (selectedScreenWidth * 0.08)) / columnNumber - NUMBERS.mGuessH * 2,
@@ -45,7 +45,7 @@ const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled }) => {
     <SelectedFiguresContainer>
       {renderFigures()}
       <SelectingActionsContainer>
-        <SelectingActions />
+        <SelectingActions isFiguresInactive={disabled}/>
       </SelectingActionsContainer>
     </SelectedFiguresContainer>
   );

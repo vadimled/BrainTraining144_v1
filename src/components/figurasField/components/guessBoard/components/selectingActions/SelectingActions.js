@@ -4,19 +4,38 @@
  * created on 07/09/2020
  */
 
-import React from 'react';
-import {SelectingActionsContainer} from './SelectingActions.styled';
-import {Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  ClickAreaRestartButton,
+  RestartButton,
+  SelectingActionsContainer
+} from './SelectingActions.styled';
+import { Alert } from 'react-native';
 
-const SelectingActions = () => {
+const SelectingActions = ({ isFiguresInactive }) => {
+  const btnInactive = require('../../../../../../../assets/button-inactive.png');
+  const btnActive = require('../../../../../../../assets/button-active.png');
+  const [btnUri, setBtnUri] = useState(btnInactive);
+
+  useEffect(() => {
+    setBtnUri(isFiguresInactive ? btnActive : btnInactive);
+  }, [isFiguresInactive]);
+
+  const onClickHandle = () => {
+    console.log('Button with adjusted color pressed');
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
+      { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+      { text: 'OK', onPress: () => console.log('OK Pressed') }
+    ]);
+  };
   return (
     <SelectingActionsContainer>
-      <Text>
-        SelectingActions
-      </Text>
+      <ClickAreaRestartButton disabled={!isFiguresInactive} onPress={onClickHandle}>
+        <RestartButton source={btnUri} resizeMode={'contain'} />
+      </ClickAreaRestartButton>
     </SelectingActionsContainer>
   );
 };
 
 export default SelectingActions;
-

@@ -97,6 +97,7 @@ const FiguresField = ({
           mH={NUMBERS.mGuessH}
           mV={NUMBERS.mGuessV}
           disabled={isDisabled}
+          isFiguresInactive={isFiguresInactive}
         />
       </GuessBoard>
       <GameContainer>

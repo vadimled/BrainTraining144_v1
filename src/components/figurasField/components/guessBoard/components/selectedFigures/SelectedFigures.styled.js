@@ -22,5 +22,4 @@ export const SelectingActionsContainer = styled.View`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px red solid;
 `;
