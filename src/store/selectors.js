@@ -6,6 +6,7 @@ export const getListItems = (state) => state.game.full144List,
   getSelectedFigures = (state) => state.game.currShapesId,
   getSelectedFiguresAmount = (state) => state.game.currShapesId.length,
   getFiguresInactive = (state) => state.game.isFiguresInactive,
+  getRestartBtn = (state) => state.game.isRestartBtn,
   getFiguresByCurrentType = createSelector(
     getListItems,
     getCurrentGameType,

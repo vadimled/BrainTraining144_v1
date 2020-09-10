@@ -6,7 +6,8 @@ const initialState = {
   full144List: [],
   currShapesId: [],
   currentGameType: null,
-  isFiguresInactive: false
+  isFiguresInactive: false,
+  isRestartBtn: false
 };
 
 const gameReducer = createReducer(initialState, {
@@ -43,6 +44,13 @@ const gameReducer = createReducer(initialState, {
     return {
       ...state,
       isFiguresInactive: true
+    };
+  },
+  [types.SET_RESTART_BTN_MODE]: state => {
+    return {
+      ...state,
+      isRestartBtn: true,
+      isFiguresInactive: false
     };
   }
 });

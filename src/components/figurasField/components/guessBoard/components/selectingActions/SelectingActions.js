@@ -12,7 +12,7 @@ import {
 } from './SelectingActions.styled';
 import { Alert } from 'react-native';
 
-const SelectingActions = ({ isFiguresInactive }) => {
+const SelectingActions = ({ isFiguresInactive, onRestart }) => {
   const btnInactive = require('../../../../../../../assets/button-inactive.png');
   const btnActive = require('../../../../../../../assets/button-active.png');
   const [btnUri, setBtnUri] = useState(btnInactive);
@@ -26,7 +26,7 @@ const SelectingActions = ({ isFiguresInactive }) => {
     Alert.alert('Alert Title', 'My Alert Msg', [
       { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
       { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-      { text: 'OK', onPress: () => console.log('OK Pressed') }
+      { text: 'OK', onPress: onRestart }
     ]);
   };
   return (

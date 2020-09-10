@@ -4,7 +4,7 @@
  * created on 21/08/2020
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FiguresContainer,
   SelectedFiguresContainer,
@@ -14,7 +14,19 @@ import Figure from '../../../components-Figure/figure';
 import { NUMBERS, selectedScreenWidth } from '../../../../../../utils/constants';
 import SelectingActions from "../selectingActions"
 
-const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled, isFiguresInactive }) => {
+const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled, onRestartAction, restartBtn }) => {
+  // const [isRender, setMode] = useState(true);
+  // useEffect(() => {
+  //   if(onRestartAction) {
+  //     setMode(false)
+  //     console.log(1,{onRestartAction})
+  //   }
+  //   else{
+  //     setMode(true)
+  //     console.log(2,{onRestartAction})
+  //   }
+  // }, [onRestartAction]);
+  
   
   const columnNumber = amount <= 6 ? 3 : 4,
     w = (selectedScreenWidth - (selectedScreenWidth * 0.08)) / columnNumber - NUMBERS.mGuessH * 2,
@@ -40,12 +52,12 @@ const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled, isFigu
         </FiguresContainer>
       );
     };
-
+  console.log({restartBtn})
   return (
     <SelectedFiguresContainer>
-      {renderFigures()}
+      {!restartBtn ? renderFigures() : <FiguresContainer />}
       <SelectingActionsContainer>
-        <SelectingActions isFiguresInactive={disabled}/>
+        <SelectingActions isFiguresInactive={disabled} onRestart={onRestartAction}/>
       </SelectingActionsContainer>
     </SelectedFiguresContainer>
   );

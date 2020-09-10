@@ -26,3 +26,9 @@ export function setFiguresInactive() {
     type: types.SET_FIGURES_INACTIVE
   };
 }
+
+export function onRestartAction() {
+  return {
+    type: types.SET_RESTART_BTN_MODE
+  };
+}

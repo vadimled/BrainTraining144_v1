@@ -12,6 +12,7 @@ import {
   getCurrentGameType,
   getFiguresByCurrentType,
   getFiguresInactive,
+  getRestartBtn,
   getSelectedFigures,
   getSelectedFiguresAmount
 } from '../../store/selectors';
@@ -20,7 +21,11 @@ import {
   FiguresScrollContainer,
   GameContainer
 } from './FiguresField.styled';
-import { checkinSelectedFigure, setFiguresInactive } from '../../store/actions/gameActions';
+import {
+  checkinSelectedFigure,
+  onRestartAction,
+  setFiguresInactive
+} from '../../store/actions/gameActions';
 import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
 import InformArea from './components/guessBoard/components/informArea';
@@ -35,7 +40,9 @@ const FiguresField = ({
   checkFigure,
   currFiguresAmount,
   currentGameType,
-  isFiguresInactive
+  isFiguresInactive,
+  onRestartAction,
+  isRestartBtn
 }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
   const [isDisabled, setFigureChoiceStatus] = useState(false);
@@ -98,6 +105,8 @@ const FiguresField = ({
           mV={NUMBERS.mGuessV}
           disabled={isDisabled}
           isFiguresInactive={isFiguresInactive}
+          onRestartAction={onRestartAction}
+          restartBtn={isRestartBtn}
         />
       </GuessBoard>
       <GameContainer>
@@ -130,14 +139,16 @@ const mapStateFromProps = (state) => {
     selectedFiguresList: getSelectedFigures(state),
     currFiguresAmount: getSelectedFiguresAmount(state),
     currentGameType: getCurrentGameType(state),
-    isFiguresInactive: getFiguresInactive(state)
+    isFiguresInactive: getFiguresInactive(state),
+    isRestartBtn: getRestartBtn(state)
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     checkFigure: (id) => dispatch(checkinSelectedFigure(id)),
-    setFiguresInactive: () => dispatch(setFiguresInactive())
+    setFiguresInactive: () => dispatch(setFiguresInactive()),
+    onRestartAction: () => dispatch(onRestartAction())
   };
 };
 export default connect(mapStateFromProps, mapDispatchToProps)(FiguresField);
