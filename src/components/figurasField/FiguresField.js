@@ -29,8 +29,8 @@ import {
 import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
 import InformArea from './components/guessBoard/components/informArea';
-import { NUMBERS, screenWidth } from '@utils/constants';
-import { isFigureChoiceDisabled } from '@utils/helper';
+import { NUMBERS, screenWidth } from 'utils/constants';
+import { isFigureChoiceDisabled } from 'utils/helper';
 import FigureActive from './components/figureActive';
 
 const FiguresField = ({

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { CONFIG } from '@utils/constants';
+import { CONFIG } from 'utils/constants';
 
 export const getListItems = (state) => state.game.full144List,
   getCurrentGameType = (state) => state.game.currentGameType,
