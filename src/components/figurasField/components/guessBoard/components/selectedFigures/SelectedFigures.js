@@ -11,7 +11,7 @@ import {
   SelectingActionsContainer
 } from './SelectedFigures.styled';
 import Figure from '../../../components-Figure/figure';
-import { NUMBERS, selectedScreenWidth } from '../../../../../../utils/constants';
+import { NUMBERS, selectedScreenWidth } from '@utils/constants';
 import SelectingActions from '../selectingActions';
 
 const SelectedFigures = ({

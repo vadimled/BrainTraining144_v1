@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import StartScreen from '../screens/startScreen';
 import GameScreen from "../screens/gameScreen"
-import {COLORS} from "../utils/constants"
+import {COLORS} from "@utils/constants"
 
 const Stack = createStackNavigator();
 

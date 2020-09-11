@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { COLORS } from '../../utils/constants';
+import { COLORS } from '@utils/constants';
 
 export const StartScreenContainer = styled.ImageBackground`
   flex: 1;

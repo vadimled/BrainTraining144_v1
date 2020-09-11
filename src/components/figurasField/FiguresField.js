@@ -15,7 +15,7 @@ import {
   getRestartBtn,
   getSelectedFigures,
   getSelectedFiguresAmount
-} from '../../store/selectors';
+} from '@store/selectors';
 import {
   FiguresFieldContainer,
   FiguresScrollContainer,
@@ -25,14 +25,13 @@ import {
   checkinSelectedFigure,
   onRestartAction,
   setFiguresInactive
-} from '../../store/actions/gameActions';
+} from '@store/actions/gameActions';
 import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
 import InformArea from './components/guessBoard/components/informArea';
-import { NUMBERS, screenWidth } from '../../utils/constants';
-import { isFigureChoiceDisabled } from '../../utils/helper';
+import { NUMBERS, screenWidth } from '@utils/constants';
+import { isFigureChoiceDisabled } from '@utils/helper';
 import FigureActive from './components/figureActive';
-// import { getSelectedFiguresAmount } from '../../utils/helper';
 
 const FiguresField = ({
   list,
