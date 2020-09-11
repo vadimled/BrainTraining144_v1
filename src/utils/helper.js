@@ -1,5 +1,5 @@
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-import {basicColors, basicShapes, COLORS, CONFIG, GAMETYPE, NUMBERS} from './constants';
+import { basicColors, basicShapes, COLORS, CONFIG, GAMETYPE, NUMBERS } from './constants';
 import React from 'react';
 
 export const getIconByName = (name) => {
@@ -70,12 +70,24 @@ export const getListOf144Shapes = () => {
     .map((a) => a[1]);
 };
 
-export const getSelectedFiguresAmount = type => CONFIG.type[type]?.guessField;
+export const getSelectedFiguresAmount = (type) => CONFIG.type[type]?.guessField;
 
 export const isFigureChoiceDisabled = (currentGameType, currFiguresAmount) => {
   switch (currentGameType) {
-    case GAMETYPE.easy : return currFiguresAmount > 3
-    case GAMETYPE.medium : return currFiguresAmount > 7
-    case GAMETYPE.hard : return currFiguresAmount > 11
+    case GAMETYPE.easy:
+      return currFiguresAmount > 3;
+    case GAMETYPE.medium:
+      return currFiguresAmount > 7;
+    case GAMETYPE.hard:
+      return currFiguresAmount > 11;
   }
+};
+
+export function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+export function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
 }

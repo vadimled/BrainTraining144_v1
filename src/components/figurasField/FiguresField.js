@@ -50,6 +50,7 @@ const FiguresField = ({
  
   useEffect(() => {
     setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
+    setFiguresInactive(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
   }, [currFiguresAmount]);
 
   const w = screenWidth / 6 - 5;

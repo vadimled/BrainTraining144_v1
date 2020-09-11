@@ -11,8 +11,9 @@ import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import { COLORS, TEXT, CONFIG } from '../../../../utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 import Figure from '../components-Figure/figure';
-import {useSelector} from "react-redux"
-import {getRestartBtn} from "../../../../store/selectors"
+import { useSelector } from 'react-redux';
+import { getRestartBtn } from '../../../../store/selectors';
+import {getRandomArbitrary, getRandomInt} from "../../../../utils/helper"
 
 const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, config }) => {
   const [action, setAction] = useState(0);
@@ -21,7 +22,7 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
   const {
     action: { cancelSelection, checkInFigure, selectFigure, stopSelection }
   } = CONFIG;
-  
+
   useEffect(() => {
     if (action === selectFigure && !disabled) {
       onBlur(true);
@@ -46,18 +47,22 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
       onBlur(false);
     }
   }, [action]);
-  
-  
+
   useEffect(() => {
     if (isRestartBtn) {
-      Animated.spring(scale, {
-        toValue: 1,
+      Animated.timing(scale, {
+        toValue: getRandomArbitrary(1.1, 2,5),
+        duration: getRandomInt(200, 600),
         useNativeDriver: true
-      }).start();
+      }).start(() =>
+        Animated.spring(scale, {
+          toValue: 1,
+          useNativeDriver: true
+        }).start()
+      );
     }
   }, [isRestartBtn]);
-  
-  
+
   const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   const onMoveStateChange = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
