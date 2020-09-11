@@ -12,7 +12,7 @@ import { COLORS, TEXT, CONFIG } from '@utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 import Figure from '../components-Figure/figure';
 import { useSelector } from 'react-redux';
-import { getRestartBtn } from '@store/selectors';
+import { getRestartBtn } from 'store/selectors';
 import {getRandomArbitrary, getRandomInt} from "@utils/helper"
 
 const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, config }) => {

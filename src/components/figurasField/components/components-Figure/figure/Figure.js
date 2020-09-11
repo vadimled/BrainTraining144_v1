@@ -13,7 +13,7 @@ import {
 } from './Figure.styled';
 import Shape from '../shape';
 import { Animated } from 'react-native';
-import { SIZE } from '@utils/constants';
+import { SIZE } from 'utils/constants';
 
 const Figure = ({
   width,

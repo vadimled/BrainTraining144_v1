@@ -15,7 +15,7 @@ import {
   getRestartBtn,
   getSelectedFigures,
   getSelectedFiguresAmount
-} from '@store/selectors';
+} from 'store/selectors';
 import {
   FiguresFieldContainer,
   FiguresScrollContainer,
@@ -25,7 +25,7 @@ import {
   checkinSelectedFigure,
   onRestartAction,
   setFiguresInactive
-} from '@store/actions/gameActions';
+} from 'store/actions/gameActions';
 import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
 import InformArea from './components/guessBoard/components/informArea';

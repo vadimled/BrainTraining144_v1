@@ -12,7 +12,7 @@ import {
 } from './SelectingActions.styled';
 import { Alert } from 'react-native';
 import {useSelector} from "react-redux"
-import {getFiguresInactive} from "@store/selectors"
+import {getFiguresInactive} from "store/selectors"
 
 const SelectingActions = ({ onRestart }) => {
   const btnInactive = require('../../../../../../../assets/button-inactive.png');
