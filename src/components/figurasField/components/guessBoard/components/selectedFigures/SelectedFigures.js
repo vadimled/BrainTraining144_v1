@@ -20,7 +20,7 @@ const SelectedFigures = ({
   mH,
   mV,
   onCheckFigure,
-  disabled,
+  isFiguresInactive,
   onRestartAction,
   restartBtn
 }) => {
@@ -41,7 +41,7 @@ const SelectedFigures = ({
                 mV={mV}
                 onCheckFigure={onCheckFigure}
                 onBlur={() => {}}
-                disabled={disabled}
+                disabled={isFiguresInactive}
               />
             );
           })}
@@ -53,7 +53,7 @@ const SelectedFigures = ({
     <SelectedFiguresContainer>
       {!restartBtn ? renderFigures() : <FiguresContainer />}
       <SelectingActionsContainer>
-        <SelectingActions isFiguresInactive={disabled} onRestart={onRestartAction} />
+        <SelectingActions onRestart={onRestartAction} />
       </SelectingActionsContainer>
     </SelectedFiguresContainer>
   );

@@ -40,10 +40,10 @@ const gameReducer = createReducer(initialState, {
       currShapesId: arr
     };
   },
-  [types.SET_FIGURES_INACTIVE]: state => {
+  [types.SET_FIGURES_INACTIVE]: (state, { payload }) => {
     return {
       ...state,
-      isFiguresInactive: true
+      isFiguresInactive: payload
     };
   },
   [types.SET_RESTART_BTN_MODE]: state => {

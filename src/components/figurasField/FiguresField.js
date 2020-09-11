@@ -42,14 +42,13 @@ const FiguresField = ({
   currentGameType,
   isFiguresInactive,
   onRestartAction,
-  isRestartBtn
+  isRestartBtn,
+  setFiguresInactive
 }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
-  const [isDisabled, setFigureChoiceStatus] = useState(false);
   const scrollRef = useRef();
- 
+
   useEffect(() => {
-    setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
     setFiguresInactive(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
   }, [currFiguresAmount]);
 
@@ -75,7 +74,7 @@ const FiguresField = ({
           height={h}
           mH={NUMBERS.mGameH}
           mV={NUMBERS.mGameV}
-          disabled={isDisabled}
+          disabled={isFiguresInactive}
         />
       );
     });
@@ -91,7 +90,6 @@ const FiguresField = ({
           onCheckFigure={checkFigure}
           mH={NUMBERS.mGuessH}
           mV={NUMBERS.mGuessV}
-          disabled={isDisabled}
           isFiguresInactive={isFiguresInactive}
           onRestartAction={onRestartAction}
           restartBtn={isRestartBtn}
@@ -135,7 +133,7 @@ const mapStateFromProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     checkFigure: (id) => dispatch(checkinSelectedFigure(id)),
-    setFiguresInactive: () => dispatch(setFiguresInactive()),
+    setFiguresInactive: (val) => dispatch(setFiguresInactive(val)),
     onRestartAction: () => dispatch(onRestartAction())
   };
 };

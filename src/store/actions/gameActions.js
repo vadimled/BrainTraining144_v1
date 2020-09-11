@@ -21,9 +21,10 @@ export function checkinSelectedFigure(id) {
   };
 }
 
-export function setFiguresInactive() {
+export function setFiguresInactive(val) {
   return {
-    type: types.SET_FIGURES_INACTIVE
+    type: types.SET_FIGURES_INACTIVE,
+    payload: val
   };
 }
 

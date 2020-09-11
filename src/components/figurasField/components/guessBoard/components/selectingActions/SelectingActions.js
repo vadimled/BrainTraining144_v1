@@ -11,12 +11,16 @@ import {
   SelectingActionsContainer
 } from './SelectingActions.styled';
 import { Alert } from 'react-native';
+import {useSelector} from "react-redux"
+import {getFiguresInactive} from "../../../../../../store/selectors"
 
-const SelectingActions = ({ isFiguresInactive, onRestart }) => {
+const SelectingActions = ({ onRestart }) => {
   const btnInactive = require('../../../../../../../assets/button-inactive.png');
   const btnActive = require('../../../../../../../assets/button-active.png');
   const [btnUri, setBtnUri] = useState(btnInactive);
-
+  const isFiguresInactive = useSelector(state => getFiguresInactive(state))
+  
+  
   useEffect(() => {
     setBtnUri(isFiguresInactive ? btnActive : btnInactive);
   }, [isFiguresInactive]);
@@ -24,7 +28,6 @@ const SelectingActions = ({ isFiguresInactive, onRestart }) => {
   const onClickHandle = () => {
     console.log('Button with adjusted color pressed');
     Alert.alert('Alert Title', 'My Alert Msg', [
-      { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
       { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
       { text: 'OK', onPress: onRestart }
     ]);
