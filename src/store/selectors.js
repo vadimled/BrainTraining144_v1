@@ -10,15 +10,16 @@ export const getListItems = (state) => state.game.full144List,
   getFiguresByCurrentType = createSelector(
     getListItems,
     getCurrentGameType,
-    getSelectedFigures,
-    (arr, type, selected) => {
+    getRestartBtn,
+    (arr, type, restart) => {
       const length = CONFIG.type[type]?.gameField;
       let newArr = [];
       for (let i = 0; i < length; i++) {
-        if (!selected.includes(arr[i].id)) { //TODO this code doesn't work
-          newArr.push(arr[i]);
-        }
+        newArr.push(arr[i]);
       }
-      return newArr;
+      return !restart ? newArr : newArr
+        .map((a) => [Math.random(), a])
+        .sort((a, b) => a[0] - b[0])
+        .map((a) => a[1]);
     }
   );

@@ -4,7 +4,7 @@
  * created on 21/08/2020
  */
 
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   FiguresContainer,
   SelectedFiguresContainer,
@@ -12,24 +12,20 @@ import {
 } from './SelectedFigures.styled';
 import Figure from '../../../components-Figure/figure';
 import { NUMBERS, selectedScreenWidth } from '../../../../../../utils/constants';
-import SelectingActions from "../selectingActions"
+import SelectingActions from '../selectingActions';
 
-const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled, onRestartAction, restartBtn }) => {
-  // const [isRender, setMode] = useState(true);
-  // useEffect(() => {
-  //   if(onRestartAction) {
-  //     setMode(false)
-  //     console.log(1,{onRestartAction})
-  //   }
-  //   else{
-  //     setMode(true)
-  //     console.log(2,{onRestartAction})
-  //   }
-  // }, [onRestartAction]);
-  
-  
+const SelectedFigures = ({
+  list,
+  amount,
+  mH,
+  mV,
+  onCheckFigure,
+  disabled,
+  onRestartAction,
+  restartBtn
+}) => {
   const columnNumber = amount <= 6 ? 3 : 4,
-    w = (selectedScreenWidth - (selectedScreenWidth * 0.08)) / columnNumber - NUMBERS.mGuessH * 2,
+    w = (selectedScreenWidth - selectedScreenWidth * 0.08) / columnNumber - NUMBERS.mGuessH * 2,
     h = w * 1.1,
     renderFigures = () => {
       return (
@@ -52,12 +48,12 @@ const SelectedFigures = ({ list, amount, mH, mV, onCheckFigure, disabled, onRest
         </FiguresContainer>
       );
     };
-  console.log({restartBtn})
+
   return (
     <SelectedFiguresContainer>
       {!restartBtn ? renderFigures() : <FiguresContainer />}
       <SelectingActionsContainer>
-        <SelectingActions isFiguresInactive={disabled} onRestart={onRestartAction}/>
+        <SelectingActions isFiguresInactive={disabled} onRestart={onRestartAction} />
       </SelectingActionsContainer>
     </SelectedFiguresContainer>
   );

@@ -46,24 +46,11 @@ const FiguresField = ({
 }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
   const [isDisabled, setFigureChoiceStatus] = useState(false);
-  // const [selectedFiguresAmount] = useState(currFiguresAmount);
   const scrollRef = useRef();
-  // const selectedFiguresAmount = useRef(getSelectedFiguresAmount(currentGameType)).current;
-  // console.log({ list });
+ 
   useEffect(() => {
-    // console.log('Amount=', currFiguresAmount);
     setFigureChoiceStatus(isFigureChoiceDisabled(currentGameType, currFiguresAmount));
   }, [currFiguresAmount]);
-
-  // useEffect(() => {
-  // setFigureChoiceStatus((flag) => {
-  //   if (flag) {
-  //     setFiguresInactive();
-  //   } else {
-  //     isFigureChoiceDisabled(currentGameType, currFiguresAmount);
-  //   }
-  // });
-  // }, [isDisabled]);
 
   const w = screenWidth / 6 - 5;
   const h = (w - 5) * 1.1;

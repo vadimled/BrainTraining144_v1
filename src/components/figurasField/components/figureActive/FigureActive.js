@@ -11,13 +11,17 @@ import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 import { COLORS, TEXT, CONFIG } from '../../../../utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 import Figure from '../components-Figure/figure';
+import {useSelector} from "react-redux"
+import {getRestartBtn} from "../../../../store/selectors"
 
 const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, config }) => {
   const [action, setAction] = useState(0);
+  const isRestartBtn = useSelector((state) => getRestartBtn(state));
   let scale = useRef(new Animated.Value(1)).current;
   const {
     action: { cancelSelection, checkInFigure, selectFigure, stopSelection }
   } = CONFIG;
+  
   useEffect(() => {
     if (action === selectFigure && !disabled) {
       onBlur(true);
@@ -42,7 +46,18 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
       onBlur(false);
     }
   }, [action]);
-
+  
+  
+  useEffect(() => {
+    if (isRestartBtn) {
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true
+      }).start();
+    }
+  }, [isRestartBtn]);
+  
+  
   const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   const onMoveStateChange = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
