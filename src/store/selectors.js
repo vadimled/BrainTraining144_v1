@@ -3,8 +3,8 @@ import { CONFIG } from 'utils/constants';
 
 export const getListItems = (state) => state.game.full144List,
   getCurrentGameType = (state) => state.game.currentGameType,
-  getSelectedFigures = (state) => state.game.currShapesId,
-  getSelectedFiguresAmount = (state) => state.game.currShapesId.length,
+  getSelectedFigures = (state) => state.game.selectedFigures,
+  getSelectedFiguresAmount = (state) => state.game.selectedFigures.length,
   getFiguresInactive = (state) => state.game.isFiguresInactive,
   getRestartBtn = (state) => state.game.isRestartBtn,
   getFiguresByCurrentType = createSelector(

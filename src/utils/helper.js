@@ -91,3 +91,19 @@ export function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
 }
+
+export function fillArray(state, stateArr, payload) {
+  let arr = [...stateArr];
+  if (stateArr?.some((s) => s.id === payload)) {
+    arr = stateArr.map((s) => {
+      if (s.id !== payload) {
+        return s;
+      }
+    });
+  } else {
+    const fg = state.full144List.find((s) => s.id === payload);
+    arr.push(fg);
+  }
+  return arr;
+}
+

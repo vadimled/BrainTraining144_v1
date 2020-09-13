@@ -21,6 +21,13 @@ export function checkinSelectedFigure(id) {
   };
 }
 
+export function guessFigure(id) {
+  return {
+    type: types.SET_GUESSED_FIGURE,
+    payload: id
+  };
+}
+
 export function setFiguresInactive(val) {
   return {
     type: types.SET_FIGURES_INACTIVE,

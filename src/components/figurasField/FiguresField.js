@@ -24,7 +24,8 @@ import {
 import {
   checkinSelectedFigure,
   onRestartAction,
-  setFiguresInactive
+  setFiguresInactive,
+  guessFigure
 } from 'store/actions/gameActions';
 import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
@@ -42,7 +43,8 @@ const FiguresField = ({
   isFiguresInactive,
   onRestartAction,
   isRestartBtn,
-  setFiguresInactive
+  setFiguresInactive,
+  guessFigure
 }) => {
   const [overlayFlag, setOverlayFlag] = useState(false);
   const scrollRef = useRef();
@@ -69,6 +71,7 @@ const FiguresField = ({
           config={item}
           onBlur={handleBlur}
           onCheckFigure={checkFigure}
+          onGuessFigure={guessFigure}
           width={w}
           height={h}
           mH={NUMBERS.mGameH}
@@ -132,6 +135,7 @@ const mapStateFromProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     checkFigure: (id) => dispatch(checkinSelectedFigure(id)),
+    guessFigure: (id) => dispatch(guessFigure(id)),
     setFiguresInactive: (val) => dispatch(setFiguresInactive(val)),
     onRestartAction: () => dispatch(onRestartAction())
   };

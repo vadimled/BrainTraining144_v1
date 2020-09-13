@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { getRestartBtn } from 'store/selectors';
 import {getRandomArbitrary, getRandomInt} from "utils/helper"
 
-const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, config }) => {
+const FigureActive = ({ onBlur, onCheckFigure, onGuessFigure, width, height, mH, mV, disabled, config }) => {
   const [action, setAction] = useState(0);
   const isRestartBtn = useSelector((state) => getRestartBtn(state));
   let scale = useRef(new Animated.Value(1)).current;
@@ -43,7 +43,14 @@ const FigureActive = ({ onBlur, onCheckFigure, width, height, mH, mV, disabled, 
         toValue: 0,
         duration: 300,
         useNativeDriver: true
-      }).start(() => onCheckFigure(config.id));
+      }).start(() => {
+        if(!isRestartBtn) {
+          onCheckFigure(config.id)
+        }
+        else{
+          onGuessFigure(config.id)
+        }
+      });
       onBlur(false);
     }
   }, [action]);

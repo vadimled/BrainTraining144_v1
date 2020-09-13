@@ -8,7 +8,7 @@ import React, { useEffect, useRef } from 'react';
 import {BtnBackground, BtnTitle, ButtonsGroup, StartScreenContainer, StartTitle} from './StartScreen.styled';
 import { useDispatch } from 'react-redux';
 import { getListOf144Shapes } from 'utils/helper';
-import {set144List, setCurrentGameType} from '../../store/actions/gameActions';
+import {set144List, setCurrentGameType} from 'store/actions/gameActions';
 
 const StartScreen = ({ navigation }) => {
   let shapeList = useRef(getListOf144Shapes());
