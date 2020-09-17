@@ -8,16 +8,16 @@ import React, { useRef, useEffect, useState } from 'react';
 import { ActionsContainer } from './FigureActive.styled';
 import { Animated, Dimensions, StyleSheet } from 'react-native';
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
-import { COLORS, TEXT, CONFIG } from 'utils/constants';
+import {COLORS, TEXT, CONFIG, GAME_MODE} from 'utils/constants';
 import { AntDesign } from '@expo/vector-icons';
 import Figure from '../components-Figure/figure';
 import { useSelector } from 'react-redux';
-import { getRestartBtn } from 'store/selectors';
+import { getGameMode } from 'store/selectors';
 import {getRandomArbitrary, getRandomInt} from "utils/helper"
 
 const FigureActive = ({ onBlur, onCheckFigure, onGuessFigure, width, height, mH, mV, disabled, config }) => {
   const [action, setAction] = useState(0);
-  const isRestartBtn = useSelector((state) => getRestartBtn(state));
+  const gameMode = useSelector((state) => getGameMode(state));
   let scale = useRef(new Animated.Value(1)).current;
   const {
     action: { cancelSelection, checkInFigure, selectFigure, stopSelection }
@@ -44,7 +44,7 @@ const FigureActive = ({ onBlur, onCheckFigure, onGuessFigure, width, height, mH,
         duration: 300,
         useNativeDriver: true
       }).start(() => {
-        if(!isRestartBtn) {
+        if(gameMode === GAME_MODE.select) {
           onCheckFigure(config.id)
         }
         else{
@@ -56,7 +56,7 @@ const FigureActive = ({ onBlur, onCheckFigure, onGuessFigure, width, height, mH,
   }, [action]);
 
   useEffect(() => {
-    if (isRestartBtn) {
+    if (gameMode === GAME_MODE.guess) {
       Animated.timing(scale, {
         toValue: getRandomArbitrary(1.1, 2,5),
         duration: getRandomInt(200, 600),
@@ -68,7 +68,7 @@ const FigureActive = ({ onBlur, onCheckFigure, onGuessFigure, width, height, mH,
         }).start()
       );
     }
-  }, [isRestartBtn]);
+  }, [gameMode]);
 
   const onGestureEvent = Animated.event([{ nativeEvent: { scale } }], { useNativeDriver: true });
   const onMoveStateChange = (event) => {

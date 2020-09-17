@@ -12,9 +12,11 @@ import {
   getCurrentGameType,
   getFiguresByCurrentType,
   getFiguresInactive,
-  getRestartBtn,
+  getGameMode,
   getSelectedFigures,
-  getSelectedFiguresAmount
+  getSelectedFiguresAmount,
+  getSelectedContainerMode,
+  getGuessedFigures
 } from 'store/selectors';
 import {
   FiguresFieldContainer,
@@ -23,26 +25,28 @@ import {
 } from './FiguresField.styled';
 import {
   checkinSelectedFigure,
-  onRestartAction,
+  setGameMode,
   setFiguresInactive,
   guessFigure
 } from 'store/actions/gameActions';
 import GuessBoard from './components/guessBoard';
 import SelectedFigures from './components/guessBoard/components/selectedFigures';
 import InformArea from './components/guessBoard/components/informArea';
-import { NUMBERS, screenWidth } from 'utils/constants';
+import { GAME_MODE, NUMBERS, screenWidth } from 'utils/constants';
 import { isFigureChoiceDisabled } from 'utils/helper';
 import FigureActive from './components/figureActive';
 
 const FiguresField = ({
   list,
   selectedFiguresList,
+  guessedFiguresList,
   checkFigure,
   currFiguresAmount,
   currentGameType,
   isFiguresInactive,
-  onRestartAction,
-  isRestartBtn,
+  setGameMode,
+  gameMode,
+  selectedContainerMode,
   setFiguresInactive,
   guessFigure
 }) => {
@@ -82,19 +86,27 @@ const FiguresField = ({
     });
   };
 
+  const getCurrentList = () => {
+    if (gameMode === GAME_MODE.select) {
+      return selectedFiguresList;
+    } else {
+      return guessedFiguresList;
+    }
+  };
+
   return (
     <FiguresFieldContainer>
       <GuessBoard>
         <InformArea />
         <SelectedFigures
-          list={selectedFiguresList}
+          list={getCurrentList()}
           amount={currFiguresAmount}
           onCheckFigure={checkFigure}
           mH={NUMBERS.mGuessH}
           mV={NUMBERS.mGuessV}
           isFiguresInactive={isFiguresInactive}
-          onRestartAction={onRestartAction}
-          restartBtn={isRestartBtn}
+          setGameMode={setGameMode}
+          isSelectedContainerClear={selectedContainerMode}
         />
       </GuessBoard>
       <GameContainer>
@@ -125,10 +137,12 @@ const mapStateFromProps = (state) => {
   return {
     list: getFiguresByCurrentType(state),
     selectedFiguresList: getSelectedFigures(state),
+    guessedFiguresList: getGuessedFigures(state),
     currFiguresAmount: getSelectedFiguresAmount(state),
     currentGameType: getCurrentGameType(state),
     isFiguresInactive: getFiguresInactive(state),
-    isRestartBtn: getRestartBtn(state)
+    gameMode: getGameMode(state),
+    selectedContainerMode: getSelectedContainerMode(state)
   };
 };
 
@@ -137,7 +151,7 @@ const mapDispatchToProps = (dispatch) => {
     checkFigure: (id) => dispatch(checkinSelectedFigure(id)),
     guessFigure: (id) => dispatch(guessFigure(id)),
     setFiguresInactive: (val) => dispatch(setFiguresInactive(val)),
-    onRestartAction: () => dispatch(onRestartAction())
+    setGameMode: (mode) => dispatch(setGameMode(mode))
   };
 };
 export default connect(mapStateFromProps, mapDispatchToProps)(FiguresField);

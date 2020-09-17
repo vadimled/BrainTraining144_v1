@@ -21,8 +21,8 @@ const SelectedFigures = ({
   mV,
   onCheckFigure,
   isFiguresInactive,
-  onRestartAction,
-  restartBtn
+  setGameMode,
+  isSelectedContainerClear
 }) => {
   const columnNumber = amount <= 6 ? 3 : 4,
     w = (selectedScreenWidth - selectedScreenWidth * 0.08) / columnNumber - NUMBERS.mGuessH * 2,
@@ -51,9 +51,9 @@ const SelectedFigures = ({
 
   return (
     <SelectedFiguresContainer>
-      {!restartBtn ? renderFigures() : <FiguresContainer />}
+      {!isSelectedContainerClear ? renderFigures() : <FiguresContainer />}
       <SelectingActionsContainer>
-        <SelectingActions onRestart={onRestartAction} />
+        <SelectingActions onRestart={setGameMode} />
       </SelectingActionsContainer>
     </SelectedFiguresContainer>
   );

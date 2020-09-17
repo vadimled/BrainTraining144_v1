@@ -35,8 +35,9 @@ export function setFiguresInactive(val) {
   };
 }
 
-export function onRestartAction() {
+export function setGameMode(mode) {
   return {
-    type: types.SET_RESTART_BTN_MODE
+    type: types.SET_GAME_MODE,
+    payload: mode
   };
 }

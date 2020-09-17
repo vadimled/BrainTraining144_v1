@@ -1,6 +1,7 @@
 import types from '../types';
 import createReducer from '../reducers/createReducer';
 import { fillArray } from 'utils/helper';
+import {GAME_MODE} from "utils/constants"
 
 const initialState = {
   loading: false,
@@ -9,7 +10,8 @@ const initialState = {
   guessedFigures: [],
   currentGameType: null,
   isFiguresInactive: false,
-  isRestartBtn: false
+  gameMode: GAME_MODE.select,
+  clearSelectedContainer: false
 };
 
 const gameReducer = createReducer(initialState, {
@@ -29,14 +31,16 @@ const gameReducer = createReducer(initialState, {
     const arr = fillArray(state, state.selectedFigures, payload);
     return {
       ...state,
-      selectedFigures: arr
+      selectedFigures: arr,
+      clearSelectedContainer: false
     };
   },
   [types.SET_GUESSED_FIGURE]: (state, { payload }) => {
     const arr = fillArray(state, state.guessedFigures, payload);
     return {
       ...state,
-      guessedFigures: arr
+      guessedFigures: arr,
+      clearSelectedContainer: false
     };
   },
   [types.SET_FIGURES_INACTIVE]: (state, { payload }) => {
@@ -45,11 +49,12 @@ const gameReducer = createReducer(initialState, {
       isFiguresInactive: payload
     };
   },
-  [types.SET_RESTART_BTN_MODE]: (state) => {
+  [types.SET_GAME_MODE]: (state, { payload }) => {
     return {
       ...state,
-      isRestartBtn: true,
-      isFiguresInactive: false
+      gameMode: payload,
+      isFiguresInactive: false,
+      clearSelectedContainer: true
     };
   }
 });

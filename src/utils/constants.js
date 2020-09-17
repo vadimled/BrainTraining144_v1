@@ -74,3 +74,8 @@ export const SIZE = {
 
 export const screenWidth = Math.round(Dimensions.get('window').width);
 export const selectedScreenWidth = Math.round(screenWidth * 0.7);
+
+export const GAME_MODE = {
+  select: 'select',
+  guess: 'guess'
+}

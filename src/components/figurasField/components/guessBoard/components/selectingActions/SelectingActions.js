@@ -13,6 +13,7 @@ import {
 import { Alert } from 'react-native';
 import {useSelector} from "react-redux"
 import {getFiguresInactive} from "store/selectors"
+import {GAME_MODE} from "utils/constants"
 
 const SelectingActions = ({ onRestart }) => {
   const btnInactive = require('../../../../../../../assets/button-inactive.png');
@@ -29,7 +30,7 @@ const SelectingActions = ({ onRestart }) => {
     console.log('Button with adjusted color pressed');
     Alert.alert('Alert Title', 'My Alert Msg', [
       { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-      { text: 'OK', onPress: onRestart }
+      { text: 'OK', onPress: () => onRestart(GAME_MODE.guess) }
     ]);
   };
   return (
